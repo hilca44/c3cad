@@ -22,6 +22,9 @@ c3cad cannot
 
 installation
 ---
+This app needs a webserver
+a) load the app folder to your server
+b) install a web server locally
 - install nodejs
 - install npm
 - install npm serve

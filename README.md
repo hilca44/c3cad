@@ -11,13 +11,13 @@ c3cad cannot
 
 installation
 ---
--install nodejs
--install npm
--install npm serve
--$ cd c3cad
--run npx serve
--open your browser on: 
--http://localhost:3000
+- install nodejs
+- install npm
+- install npm serve
+- $ cd c3cad
+- run npx serve
+- open your browser on: 
+- http://localhost:3000
 
 c3cad
 (carpenters-3d-cad)

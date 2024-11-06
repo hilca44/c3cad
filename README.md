@@ -11,7 +11,7 @@ CAD for creating basic furnitures, frontend for Threejs.
 - live demo:
 - https://hilbertcnc.de/c3cad/
   
-![stapelbauweise](https://github.com/user-attachments/assets/4222bfcc-4953-43bf-9bf2-89368eee227f)
+[stapelbauweise](https://github.com/user-attachments/assets/4222bfcc-4953-43bf-9bf2-89368eee227f)
 
 c3cad cannot
 -------------

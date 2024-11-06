@@ -1,0 +1,84 @@
+do not
+---
+use upper case except vars
+
+
+values
+---
+3 absolut value
+@3 relativ value
+3,5,7 list
+
+parts
+---
+b back rueckw
+l left
+r right
+c cupboard
+f front
+g ground
+[gtlrfbvc] take one part (char)
+
+PROPERTIES
+m material number
+nx3 repeat korpus in x dir.
+s thickness
+w width
+h height 
+
+move
+---
+x position x
+y position y
+z position z
+e.g., x3
+
+rotate
+---
+o[xyz] oz rotate around z axis
+e.g., oz10
+
+copy
+---
+n[xyz]3
+
+
+variable
+--------
+use upper case letters
+e.g.
+A 60
+B x7
+
+connect
+---
+a_3
+<name>_<corner>
+a.g_2
+<name>.<part>_<corner>
+corners:
+      5 --- 6
+    /.    / |
+  1 --- 2  |
+  | 4 . |. 7
+  |.    | /
+  0 --- 3 
+e.g.,
+a 60 40 72
+b 50 40 72 a_3
+explanation: connects point 0
+of current korpus to point 3 of
+korpus a
+
+push/pull
+---
+<part>i[lrgtfb]<value>
+e.g., il3
+
+
+
+auto variable
+-------------
+write the name of a previous Korpus
+in Upper case letters makes a copy.
+you can override parameter

@@ -1,0 +1,211 @@
+*{
+    font-family: monospace;
+    font-size: 1em;
+}
+     div.label{
+        width: auto;
+     }                
+#stl_cont{
+    height: 500px;
+    width: 500px;
+}
+.r{
+    color:darkmagenta;
+    font-weight: bold;
+}
+.g {
+    color:green;
+}
+.ww {
+ background-color: beige;
+    border-bottom:1px darkolivegreen; } 
+html{ 
+    overflow:scroll;
+    background-color:rgb(134, 134, 116); 
+    margin-top: 33px;
+}
+.lil-gui {
+    --width:600px;
+    --name-width: 12px;
+    --font-size: 14px;
+    --input-font-size: 14px;
+    --font-family: mono;
+}
+textarea{
+    width: 700px;
+    font-size: 1.05;
+    height: 20vh;
+}
+.inl{
+    display: inline;
+}
+.fix{
+    position: fixed;
+    right: 0;
+    top: 30px;
+}
+progress {display:inline; width:10%;}
+#canvas {
+    background-color: #000;
+    /* position: absolute;
+    top: 140px;
+    left: 0px; */
+    width: 700px;
+    height: 500px;
+    border: 1px solid black;
+    z-index: 1;
+    
+
+} 
+.number{
+    font-size: 223px;
+}
+.element {
+    width: 120px;
+    height: 160px;
+    box-shadow: 0px 0px 12px rgba(0,255,255,0.5);
+    border: 1px solid rgba(127,255,255,0.25);
+    font-family: Helvetica, sans-serif;
+    text-align: center;
+    line-height: normal;
+    cursor: default;
+}
+
+.element:hover {
+    box-shadow: 0px 0px 12px rgba(0,255,255,0.75);
+    border: 1px solid rgba(127,255,255,0.75);
+}
+
+    .element .number {
+        /* position: absolute;
+        top: 20px;
+        right: 20px; */
+        font-size: 12px;
+        color: rgba(127,255,255,0.75);
+    }
+
+    .element .symbol {
+        /* position: absolute;
+        top: 40px;
+        left: 0px; */
+        right: 0px;
+        font-size: 60px;
+        font-weight: bold;
+        color: rgba(255,255,255,0.75);
+        text-shadow: 0 0 10px rgba(0,255,255,0.95);
+    }
+
+    .element .details {
+        /* position: absolute;
+        bottom: 15px;
+        left: 0px;
+        right: 0px; */
+        font-size: 12px;
+        color: rgba(127,255,255,0.75);
+    }
+
+  /* Dropdown Button */
+  .dropbtn {
+    background-color: #04AA6D;
+    color: white;
+    border: none;
+    margin: 0px;
+    padding: 0px;
+    float: left;
+    z-index: 1;
+  }
+* {
+    margin: 0px;
+    padding: 0px;
+  }
+  .dropbtn {
+    background-color: #04AA6D;
+    color: white;
+    border: none;
+    margin: 4px;
+    top: 0px ;
+    padding: 4px;
+    float: left;
+    z-index: 1;
+  }
+  
+  /* The container <div> - needed to position the dropdown content */
+  .dropdown {
+      top: 0px;
+    display: inline-block;
+    z-index: 1;
+  }
+  
+  /* Dropdown Content (Hidden by Default) */
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    top: 8vh;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    width: 90vw;
+    height: 80vh;
+    overflow: scroll;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+  
+  /* Links inside the dropdown */
+  .dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+  
+  /* Change color of dropdown links on hover */
+  .dropdown-content a:hover {background-color: #ddd;}
+  
+  /* Show the dropdown menu on hover */
+  .dropdown:hover .dropdown-content {display: block;}
+  
+  /* Change the background color of the dropdown button when the dropdown content is shown */
+  .dropdown:hover .dropbtn {background-color: #3e8e41;}
+  
+   /* Handle 125% and 150% Windows 10 Font Scaling on 96dpi monitors */
+   @media (min-resolution:180dpi) {
+    *{
+         font-size: 5vw;
+         /* width: 100vw; */
+         padding: 2;
+         margin: 0;
+         zoom: 0%;
+         /* color: blue; */
+         overflow-wrap: break-word;
+         .dropbtn, .dropdown, input {
+             font-size: 5vw;
+             width: 24vw;
+         
+         }
+        }
+        textarea{
+        height: 30vh;
+        }
+
+        #gu {
+            width: 100vw;
+            padding: 1px 2px;
+            /* position: fixed;
+            bottom: 10px;
+            left: 0px; */
+         font-size: 5vw;
+          }
+        #gu input {
+            margin: 10px;
+            padding: 10px ;
+            height: 60px;
+         font-size: 5vw;
+          }
+        #gu .lil-gui {
+            --width:100%;
+            --name-width: 12px;
+            --font-family: mono;
+            --padding: 5px;
+            --margin: 5px 0px;
+        }
+}

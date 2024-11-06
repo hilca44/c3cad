@@ -11,97 +11,116 @@ c3cad cannot
 
 installation
 ---
-install nodejs
-install npm
-install npm serve
-$ cd c3cad
-run npx serve
-open your browser on: 
-http://localhost:3000
+-install nodejs
+-install npm
+-install npm serve
+-$ cd c3cad
+-run npx serve
+-open your browser on: 
+-http://localhost:3000
 
-//Example 
-------
-m0 4 54 1.5 #arbeitsplatte lichtgrau buche anleimer
-m1 2.8 14 1.4 kunststoff lichtgrau
-m2 1.6 9 1.4 kunststoff lichtgrau
-L 145
-a L 100 70 m1 f1
-apl L 90 m0 z84
-c $a wa3
-d $a wc3
+c3cad
+(carpenters-3d-cad)
+---
+CAD for creating basic furnitures, frontend for Threejs.
+- c-cad is a parametric korpus generator
+- c-cad creates 3d models
+- input is only via text lines with special terminologie
+  
+![stapelbauweise](https://github.com/user-attachments/assets/4222bfcc-4953-43bf-9bf2-89368eee227f)
 
-MATERIAL LIST
---------------
-Each row has 5 fields, separated with space:
-materialNumber thickness price wasteRate # comment
--materialNumber starts with "m" followed by a number
-Example:
-m0 4 54 1.5 #arbeitsplatte lichtgrau buche anleimer
-m1...
-m2
-...
+c3cad cannot
+-------------
+- working with lines and arcs
+- create dimensions
 
-Korpus List
---
+example
+---
+- m0 1.9 wh 54 1.5 #span weiss
+- a lrgtbc  60 60 70 m1
 
-Short Reference
----------------
+do not
+---
+use upper case except vars
 
-Parts 
---
 
-a
-b back
-c
-c cupboard
-d depth, dN
-e
-f=front
-g ground
-h height 
-i
-j
-k
-l left
-m material
-n n times
-nx repeat in x direction
-o
-p
-q
-r right
-rx 
-s
-t top
-u
-v vertical
-w width,
-x position x
-y position y
-z position z
+values
+---
+- 3 absolut value
+- @3 relativ value
+- 3,5,7 list
 
-< =   align to korpus
-    /////////////////////////////////
-    /*///////////////////////////////
-                   5 --- 6
-                 /.    / |
-                1 --- 2  |
-                | 4 . |. 7
-                |.    | /
-                0 --- 3 
-    /////////////////////////////////
-    /////////////////////////////////
-    */
-    Example: <a3 = connect current korp zero 
-    to korp a corner 3
+parts
+---
+- b back rueckw
+- l left
+- r right
+- c cupboard
+- f front
+- g ground
+- [gtlrfbvc] take one part (char)
 
-auto alignment
---------------
-each new korpus has auto alignment
-to previous korpus
+properties
+---
+-m material number
+-nx3 repeat korpus in x dir.
+-s thickness
+-w width
+-h height 
+
+move
+---
+-x position x
+-y position y
+-z position z
+-e.g., x3
+
+rotate
+---
+-o[xyz] oz rotate around z axis
+-e.g., oz10
+
+copy
+---
+n[xyz]3
+
+
+variable
+---
+use upper case letters
+e.g.
+A 60
+B x7
+
+connect
+---
+a_3
+<name>_<corner>
+a.g_2
+<name>.<part>_<corner>
+corners:
+      5 --- 6
+    /.    / |
+  1 --- 2  |
+  | 4 . |. 7
+  |.    | /
+  0 --- 3 
+e.g.,
+a 60 40 72
+b 50 40 72 a_3
+explanation: connects point 0
+of current korpus to point 3 of
+korpus a
+
+push/pull
+---
+<part>i[lrgtfb]<value>
+e.g., il3
+
+
 
 auto variable
--------------
+---
 write the name of a previous Korpus
 in Upper case letters makes a copy.
 you can override parameter

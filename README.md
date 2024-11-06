@@ -1,13 +1,21 @@
-c3cad
+c3cad 
+---
+tiny and fast 3d Korpus Generator
+(carpenters-3d-cad)
+---
 CAD for creating basic furnitures, frontend for Threejs.
-- c3cad is a parametric korpus generator
-- c3cad creates 3d models
+- c-cad is a parametric korpus generator
+- c-cad creates 3d models
 - input is only via text lines with special terminologie
+- create exploded views: type g5 or g22 ...
+  
+![stapelbauweise](https://github.com/user-attachments/assets/4222bfcc-4953-43bf-9bf2-89368eee227f)
 
 c3cad cannot
 -------------
 - working with lines and arcs
 - create dimensions
+- boolsche operations
 
 installation
 ---
@@ -19,15 +27,6 @@ installation
 - open your browser on: 
 - http://localhost:3000
 
-c3cad
-(carpenters-3d-cad)
----
-CAD for creating basic furnitures, frontend for Threejs.
-- c-cad is a parametric korpus generator
-- c-cad creates 3d models
-- input is only via text lines with special terminologie
-  
-![stapelbauweise](https://github.com/user-attachments/assets/4222bfcc-4953-43bf-9bf2-89368eee227f)
 
 c3cad cannot
 -------------
@@ -36,12 +35,16 @@ c3cad cannot
 
 example
 ---
+- m0, m1 ... material definition for parameter, presentation.
+ later for calculation and CAD CAM module (not included)
 - m0 1.9 wh 54 1.5 #span weiss
 - a lrgtbc  60 60 70 m1
 
 do not
 ---
-use upper case except vars
+do not use upper case except vars
+do not use spaces in the first block, which is your korpus name
+in our example is a the name
 
 
 values
@@ -68,6 +71,11 @@ properties
 -w width
 -h height 
 
+colors
+---
+- wh white
+- bl blue
+- ei eiche
 move
 ---
 -x position x

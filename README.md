@@ -8,7 +8,8 @@ CAD for creating basic furnitures, frontend for Threejs.
 - c-cad creates 3d models
 - input is only via text lines with special terminologie
 - create exploded views: type g5 or g22 ...
-  ![grafik](https://github.com/user-attachments/assets/8a2e01c0-3300-4077-8167-6b30cebe62ea)
+![c3cad](https://github.com/user-attachments/assets/6a856ed7-b90a-450c-b73b-4df4abef2fc2)
+
 
 - live demo:
 - https://hilbertcnc.de/c3cad/

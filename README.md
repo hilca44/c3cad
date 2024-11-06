@@ -1,17 +1,26 @@
--# c-cad
+c3cad
 CAD for creating basic furnitures, frontend for Threejs.
-- c-cad is a parametric korpus generator
-- c-cad creates 3d models
+- c3cad is a parametric korpus generator
+- c3cad creates 3d models
 - input is only via text lines with special terminologie
 
-c-cad cannot
+c3cad cannot
 -------------
 - working with lines and arcs
 - create dimensions
 
+installation
+---
+install nodejs
+install npm
+install npm serve
+$ cd c3cad
+run npx serve
+open your browser on: 
+http://localhost:3000
+
 //Example 
 ------
-
 m0 4 54 1.5 #arbeitsplatte lichtgrau buche anleimer
 m1 2.8 14 1.4 kunststoff lichtgrau
 m2 1.6 9 1.4 kunststoff lichtgrau

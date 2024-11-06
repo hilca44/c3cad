@@ -337,11 +337,11 @@ var aks=sks.split("\n")
             for(let e in myObject){
                 s=s+myObject[e]+"\n"
             }
-pr=prr(s)
-        $("#mm2").html(dd(pr))
+		pr=prr(s)
+        
 
             if (deb == 1) {
-
+		$("#mm2").html(dd(pr))
                 alert(dd(pr) + "pr")
             }
             ////////////////////////

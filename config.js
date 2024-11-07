@@ -58,6 +58,16 @@ function getwor(arr, o, n){
  */
 var diwo = {
     "3fac": [200, 150, anz, "St", ""],  // 3fach verriegelung incl. pz und garnitur
+    
     "zeit": [0, 1, anz, "St", "Sonderarbeit (min)"],  // frei pos zeit
-    "zusc": [0, 2, umf, "m", "Zuschnitt"]  // zuschnitt 4 min oder beck
+    "zusc": [0, 2, umf, "m", "Zuschnitt"],  // zuschnitt 4 min oder beck
 }
+
+// module.exports = {
+// diwo,
+// getwor,
+// briefk,
+// WUG,
+// HOM,
+// CAD
+// }

@@ -22,10 +22,9 @@
 html{ 
     overflow:scroll;
     background-color:rgb(134, 134, 116); 
-    margin-top: 33px;
 }
 .lil-gui {
-    --width:600px;
+    --width:700px;
     --name-width: 12px;
     --font-size: 14px;
     --input-font-size: 14px;
@@ -58,7 +57,7 @@ progress {display:inline; width:10%;}
 
 } 
 .number{
-    font-size: 223px;
+    font-size: 23px;
 }
 .element {
     width: 120px;
@@ -104,16 +103,6 @@ progress {display:inline; width:10%;}
         color: rgba(127,255,255,0.75);
     }
 
-  /* Dropdown Button */
-  .dropbtn {
-    background-color: #04AA6D;
-    color: white;
-    border: none;
-    margin: 0px;
-    padding: 0px;
-    float: left;
-    z-index: 1;
-  }
 * {
     margin: 0px;
     padding: 0px;
@@ -122,13 +111,16 @@ progress {display:inline; width:10%;}
     background-color: #04AA6D;
     color: white;
     border: none;
+    width: 33px;
     margin: 4px;
     top: 0px ;
     padding: 4px;
     float: left;
-    z-index: 1;
+    z-index: 11;
   }
-  
+  footer {
+    margin-top: 100px;
+  }
   /* The container <div> - needed to position the dropdown content */
   .dropdown {
       top: 0px;

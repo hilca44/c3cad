@@ -353,7 +353,7 @@ export class Proj {
     }
 
     makeParts_step1(ko) {
-        for (var pp of ko.j) {
+        for (var pp of PARTS) {
             // if (PARTS.includes(pp)) {
             ko.pats[pp] = {
                 s: ko.s,
@@ -392,14 +392,14 @@ export class Proj {
 
                     v = ko.pats[pat]["m"]
                 }
-                // if ("lrv".includes(pat)) {
-                //     ko.pats[pat]["w"] = this.lms[v]["s"]
+                if ("lrv".includes(pat)) {
+                    ko.pats[pat]["w"] = this.lms[v]["s"]
 
-                // } else if ("gcet".includes(pat)) {
-                //     ko.pats[pat]["h"] = this.lms[v]["s"]
-                // } else if ("fb".includes(pat)) {
-                //     ko.pats[pat]["d"] = this.lms[v]["s"]
-                // }
+                } else if ("gcet".includes(pat)) {
+                    ko.pats[pat]["h"] = this.lms[v]["s"]
+                } else if ("fb".includes(pat)) {
+                    ko.pats[pat]["d"] = this.lms[v]["s"]
+                }
 
                 ko.pats[pat]["co"] = this.lms[v]["co"]
                 ko.pats[pat]["m"] = this.lms[v]["nme"]
@@ -498,7 +498,7 @@ export class Proj {
                     d: ko.d - s.b - s.f,
                     h: ko.pats.c.s,
                     x: s.l,
-                    y: 0,
+                    y: s.f,
                     z: ko.h/2
                 },
                 e: {

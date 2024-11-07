@@ -70,12 +70,12 @@ class ResourceTracker {
 }
 // 
 function encodeqs(sks) {
-    return sks.replace(/[ ]/g, "__").replace(/\n/g, "_+_").replace(/#/g, "vvv")
+    return sks.replace(/[ ]/g, "&").replace(/\n/g, "&&").replace(/#/g, "vvv")
 
 }
 // 
 function decodeqs(sks) {
-    return sks.replace(/__/g, " ").replace(/_\+_/g, "\n").replace(/vvv/g, "#")
+    return sks.replace(/&&/g, "\n").replace(/&/g, " ").replace(/vvv/g, "#")
 
 }
 var deb = 0
@@ -108,7 +108,7 @@ function magie(kkk = "") {
     var meshgroup1 = {}
     var holi = ""
     if (kkk == "") {
-        kkk = "m0 1.9 wh 22 2 #span\nm1 2 ei 22 2 #span18\na lrgtbc 22 22 22 m0\n"
+        kkk = "m0 1.9 wh\nm1 2 ei\na lrgtbc 22 22 22 m0\n"
     } else {
         kkk = decodeqs(kkk)
     }
@@ -269,7 +269,7 @@ function magie(kkk = "") {
             s = s.replace(/\n\n$/g, "\n")
 
             magie(s)
-            // pr=prr(myObject.mat+"\n"+myObject.krr)
+            // pr=prr(myObject.mat+"\n"+myObject.z)
             // proj(pr)
             // animate()
             // controls.update()
@@ -290,7 +290,7 @@ function magie(kkk = "") {
         if (sks != "") {
             myObject = {}
             for (let i = 0; i < aks.length; i++) {
-                myObject["krr" + i] = aks[i];
+                myObject["z" + i] = aks[i];
 
             }
         }
@@ -301,9 +301,9 @@ function magie(kkk = "") {
         if (sks != "") {
             
             for (let i = 0; i < aks.length; i++) {
-                // gui.add( myObject, 'krr'+i );   // Text Field
-                gui.add(myObject, 'krr' + i)
-                .name('krr' + i)
+                // gui.add( myObject, 'z'+i );   // Text Field
+                gui.add(myObject, 'z' + i)
+                .name('z' + i)
                 .onFinishChange(value => {
                     $("#gu").html("")
                     
@@ -733,7 +733,7 @@ let kk
 let qs = window.location.href.split("?")[1] || ""
 if (qs.length > 5) {
     // alert(qs)
-    kk = qs.replace(/_[+]_/g, "\n").replace(/__/g, " ")
+    kk = decodeqs(qs)
 } else {
     kk = ""
 }

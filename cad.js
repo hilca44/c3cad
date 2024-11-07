@@ -4,6 +4,7 @@ var pp = "public/cad/"
 var regcomma = /[,]/
 const PARTS = "lrgtfbcve"
 const PMETER1 = "xyzwdhmg"
+const CHARS = "_.,@"
 
 var sess = {
     'rr': "first value",
@@ -77,6 +78,9 @@ export class Proj {
         this.inntest = []
         this.kkkkkk = []
         this.fn = ""
+        this.sess={
+            eee:""
+        }
         this.omat = {}
         this.ovar = {}
         this.lpa = []
@@ -104,16 +108,17 @@ export class Proj {
         this.opas = {}
         this.mod = 0  // 1 klammer is open
         this.lins = []
-        sess.err = ""
-        sess.erro = ""
+        this.sess.err = ""
+        this.sess.erro = ""
         this.allRowsToVar()
         try {
-            this.createListMaKoPaVaFromInn()
+            let eee=this.createListMaKoPaVaFromInn()
+            if(eee==0){return this}
 
         } catch (error) {
-            // sess.err = error.stack
+            // this.sess.err = error.stack
             alert(error.stack)
-            sess.err = sess.err + error.stack
+            this.sess.err = this.sess.err + error.stack
         }
     }
 
@@ -127,6 +132,9 @@ export class Proj {
         // alert(dd(this.vs))
 
         let linn = this.inn.trim().split("\n")
+        if(/^!m/.test(linn[0])){
+            this.newMat("m0 2 ei 22 2 #eiche")
+        }
         for (var m of linn) {
             // alert(m)
             m = m.trim()
@@ -139,6 +147,8 @@ export class Proj {
             } else if (/^[a-z]/.test(m)) {
                 this.line = m
                 ko = this.new__Korp(m)
+        if(ko==0){return 0}
+
                 this.oks[ko.nme] = {...ko}
                 this.out += "\n" + ko.osc
                 // this.lastko = ko.nme
@@ -248,8 +258,8 @@ export class Proj {
 
 
     new__Korp(innk) {
-        // sess.err = ""
-        // sess.check=[]
+        // this.sess.err = ""
+        // this.sess.check=[]
         var ko = {
             x: 0,  // offset x
             y: 0,
@@ -277,7 +287,7 @@ export class Proj {
             pats: {}
         }
 
-        // sess.err2 = ""
+        // this.sess.err2 = ""
         ko.innk = this.replVars(ko.innk)
         ko.innk = this.replVars(ko.innk)
         // this.line=ko.innk
@@ -287,22 +297,25 @@ export class Proj {
         this.wdh(ko)
         this.makeKom(ko)
         this.makeKoxyz(ko)
-        this.markwrong(ko)
+        let eee=this.markwrong(ko)
+        if(eee==0){return 0}
         this.makeParts_step1(ko)
         this.setMtoParts(ko)
         this.makeParts_step2(ko)
-        this.makePaxyz(ko)
-        this.makeKoxyz(ko)
+        // this.makePaxyz(ko)
+        // this.makeKoxyz(ko)
         this.makeKoRow(ko)
         this.makePaRow(ko)
         this.align(ko)
-
+        
         this.pushpull(ko)
         this.cutFront(ko)
         this.makePaN(ko)
         this.makeKoN(ko)
         this.createN(ko)
         this.createNparts(ko)
+        this.makePaxyz(ko)
+        this.makeKoxyz(ko)
         /// NN ///////////////////
         // let cps=this.createN(ko,this.oks )
         // for(let e of cps){
@@ -336,18 +349,47 @@ export class Proj {
     }
     markwrong(ko) {
 
-        let mark
+        let mark, com, re
         let bs = ko.lbs
         for (let e of bs[1]) {
-            if (!/[lrgtfbcve]/.test(e)) {
+            let re = new RegExp("["+PARTS+"]+")
+            if (!re.test(e)) {
                 mark = bs[1].replace(e, "<mark>" + e + "</mark>")
-                sess.erro = sess.erro + mark
+                com=" second block: only parts"
+                this.sess.eee =  mark+com
+                return 0
             }
         }
-        if (!/[0-9]/.test(bs[2])) {
-            mark = bs[2].replace(bs[2], "<mark>" + bs[2] + "</mark>")
-            sess.erro = sess.erro + mark
-
+        // w
+        re = new RegExp('[^0-9.]')
+        if (re.test(bs[2])) {
+                alert(bs[2])
+            mark = "<mark>" + bs[2] + "</mark>"
+            com=" 3. block: only numbers"
+                this.sess.eee =  mark+com
+                return 0
+        }
+        // d
+        re = new RegExp('[^0-9.]')
+        if (re.test(bs[3])) {
+            mark = "<mark>" + bs[3] + "</mark>"
+            let com=" 4. block: only numbers"
+                this.sess.eee =  mark+com
+                return 0
+        }
+        // h
+        re = new RegExp('[^0-9.]')
+        if (re.test(bs[4])) {
+            mark = "<mark>" + bs[4] + "</mark>"
+            com=" 5. block: only numbers"
+                this.sess.eee =  mark+com
+                return 0
+        }
+        if (!/m[0-9]/.test(bs[5])) {
+            mark = "<mark>" + bs[2] + "</mark>"
+            let com=" 3. block: only numbers"
+                this.sess.eee =  mark+com
+                return 0
         }
 
     }
@@ -572,12 +614,12 @@ export class Proj {
         let f, i
         i = 0
         for (let e of ko.lbs.slice(2)) {
-            let re = new RegExp("[" + PMETER1 + "][0-9.-@]")
+            let re = new RegExp("[" + PMETER1 + "][-@]{0,1}[0-9.]")
             if (re.test(e)) {
              f = this.splita1(e)
              if(f[1][0]=="@"){
-
-                 ko[f[0]] += Number(f[1].slice(1))
+                 let v2=f[1].slice(1)
+                 ko[f[0]]= ko[f[0]] + Number(v2)
              }else{
 
                  ko[f[0]] = Number(f[1])
@@ -590,7 +632,7 @@ export class Proj {
         let i
         i = 0
         for (let e of ko.lbs.slice(2)) {
-            let re = new RegExp("[" + PARTS + "][" + PMETER1 + "][0-9.-@]")
+            let re = new RegExp("[" + PARTS + "][" + PMETER1 + "][-@]{0,1}[0-9.]")
             if (re.test(e)) {
                 let f = this.poi(e)
                 ko.pats[e[0]][e[1]] = f[2]
@@ -745,6 +787,7 @@ export class Proj {
                 k2=k
             } else if (k.length == 2) {
                 if (/[gtlrvcf]/.test(k[0])) {
+                    p2=k[0]
                     k2 = k.slice(1)
                 } else {
 
@@ -759,7 +802,7 @@ export class Proj {
         let res=[p2, k2, v2, ko]
         for(let er of res){
             if(er==null){
-                sess.err=sess.err+"  error in::"+e
+                this.sess.err=this.sess.err+"  error in::"+e
             }
         }
             console.log("fff"+JSON.stringify(res))
@@ -1040,7 +1083,7 @@ export class Proj {
             }
 
         } catch (error) {
-            sess.err = sess.err+"false value: " + s + " in line: " + this.line
+            this.sess.err = this.sess.err+"false value: " + s + " in line: " + this.line
         }
     }
 
@@ -1066,7 +1109,7 @@ export class Proj {
             }
 
         } catch (error) {
-            sess.err=sess.err+"false value: " + s + " in line: " + this.line
+            this.sess.err=this.sess.err+"false value: " + s + " in line: " + this.line
         }
     }
 

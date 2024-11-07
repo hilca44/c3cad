@@ -14,7 +14,8 @@ import { Proj } from "./cad.js";
 
 // 
 function dd(pp) {
-    let rr = JSON.stringify(pp)
+    var rr 
+    rr= JSON.stringify(pp)
     rr = rr.replace(/[<]/igm, "gt")
     return rr
 
@@ -383,6 +384,16 @@ function magie(kkk = "") {
         ////////////////////////
         // korpus //////////////////////
         function proj(pr) {
+            if(pr.sess.eee.length > 1){
+                $("#err").html(pr.sess.eee)
+                $("#wrong").html("Wrong input:")
+                
+            }else{
+                $("#err").html("")
+                $("#wrong").html("")
+
+            }
+
             var kk = {}
             for (var k1 in pr.oks) {
                 var g7 = new THREE.Group()

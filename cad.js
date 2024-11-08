@@ -1,4 +1,4 @@
-import {  } from "./config.js";
+import { } from "./config.js";
 var s = {}
 var pp = "public/cad/"
 var regcomma = /[,]/
@@ -78,8 +78,8 @@ export class Proj {
         this.inntest = []
         this.kkkkkk = []
         this.fn = ""
-        this.sess={
-            eee:""
+        this.sess = {
+            eee: ""
         }
         this.omat = {}
         this.ovar = {}
@@ -112,12 +112,12 @@ export class Proj {
         this.sess.erro = ""
         this.allRowsToVar()
         try {
-            let eee=this.createListMaKoPaVaFromInn()
-            if(eee==0){return this}
+            let eee = this.createListMaKoPaVaFromInn()
+            if (eee == 0) { return this }
 
         } catch (error) {
             // this.sess.err = error.stack
-            alert(error.stack)
+            alert(error + "\n" + error.stack)
             this.sess.err = this.sess.err + error.stack
         }
     }
@@ -132,7 +132,7 @@ export class Proj {
         // alert(dd(this.vs))
 
         let linn = this.inn.trim().split("\n")
-        if(/^!m/.test(linn[0])){
+        if (/^!m/.test(linn[0])) {
             this.newMat("m0 2 ei 22 2 #eiche")
         }
         for (var m of linn) {
@@ -147,9 +147,9 @@ export class Proj {
             } else if (/^[a-z]/.test(m)) {
                 this.line = m
                 ko = this.new__Korp(m)
-        if(ko==0){return 0}
+                if (ko == 0) { return 0 }
 
-                this.oks[ko.nme] = {...ko}
+                this.oks[ko.nme] = { ...ko }
                 this.out += "\n" + ko.osc
                 // this.lastko = ko.nme
             }
@@ -173,7 +173,7 @@ export class Proj {
         //         if (error !== null) {
         //             console.log('exec error: ' + error);
         //         }
-            // });
+        // });
     }
 
 
@@ -205,7 +205,7 @@ export class Proj {
             var d = m.trim().split("#")
             sho = d[1]
         } else {
-            sho = m.slice(0,2)
+            sho = m.slice(0, 2)
         }
         var mat
         // for(var i of lmi){
@@ -270,7 +270,9 @@ export class Proj {
             nz: [1, 0],
             co: "bu",  // cupboard 0-9 od [], fachboden
             d: 0,  // depth
-            g: 0,  // gap
+            xx: 0.05,  // gap
+            xy: 0.05,  // gap
+            xz: 0.05,  // gap
             h: 0,
             innk: innk, // input
             j: "",
@@ -290,32 +292,28 @@ export class Proj {
         // this.sess.err2 = ""
         ko.innk = this.replVars(ko.innk)
         ko.innk = this.replVars(ko.innk)
-        // this.line=ko.innk
-        // ko = this.replForeignParams(ko)
-        // ko.innk = this.trimInput(ko.innk)  // mk blocks
         ko.lbs = this.makeblocks(ko.innk)  // mk blocks
         this.wdh(ko)
         this.makeKom(ko)
         this.makeKoxyz(ko)
-        let eee=this.markwrong(ko)
-        if(eee==0){return 0}
+        let eee = this.markwrong(ko)
+        if (eee == 0) { return 0 }
         this.makeParts_step1(ko)
         this.setMtoParts(ko)
         this.makeParts_step2(ko)
-        // this.makePaxyz(ko)
-        // this.makeKoxyz(ko)
         this.makeKoRow(ko)
         this.makePaRow(ko)
         this.align(ko)
-        
-        this.pushpull(ko)
+
+        this.makePaxyz(ko)
+        this.makeKoxyz(ko)
         this.cutFront(ko)
+        this.pushpullset(ko)  // before cutFront
+        this.pushpulldo(ko)  // before cutFront
         this.makePaN(ko)
         this.makeKoN(ko)
         this.createN(ko)
         this.createNparts(ko)
-        this.makePaxyz(ko)
-        this.makeKoxyz(ko)
         /// NN ///////////////////
         // let cps=this.createN(ko,this.oks )
         // for(let e of cps){
@@ -352,44 +350,44 @@ export class Proj {
         let mark, com, re
         let bs = ko.lbs
         for (let e of bs[1]) {
-            let re = new RegExp("["+PARTS+"]+")
+            let re = new RegExp("[" + PARTS + "]+")
             if (!re.test(e)) {
                 mark = bs[1].replace(e, "<mark>" + e + "</mark>")
-                com=" second block: only parts"
-                this.sess.eee =  mark+com
+                com = " second block: only parts"
+                this.sess.eee = mark + com
                 return 0
             }
         }
         // w
         re = new RegExp('[^0-9.]')
         if (re.test(bs[2])) {
-                alert(bs[2])
+            alert(bs[2])
             mark = "<mark>" + bs[2] + "</mark>"
-            com=" 3. block: only numbers"
-                this.sess.eee =  mark+com
-                return 0
+            com = " 3. block: only numbers"
+            this.sess.eee = mark + com
+            return 0
         }
         // d
         re = new RegExp('[^0-9.]')
         if (re.test(bs[3])) {
             mark = "<mark>" + bs[3] + "</mark>"
-            let com=" 4. block: only numbers"
-                this.sess.eee =  mark+com
-                return 0
+            let com = " 4. block: only numbers"
+            this.sess.eee = mark + com
+            return 0
         }
         // h
         re = new RegExp('[^0-9.]')
         if (re.test(bs[4])) {
             mark = "<mark>" + bs[4] + "</mark>"
-            com=" 5. block: only numbers"
-                this.sess.eee =  mark+com
-                return 0
+            com = " 5. block: only numbers"
+            this.sess.eee = mark + com
+            return 0
         }
         if (!/m[0-9]/.test(bs[5])) {
             mark = "<mark>" + bs[2] + "</mark>"
-            let com=" 3. block: only numbers"
-                this.sess.eee =  mark+com
-                return 0
+            let com = " 3. block: only numbers"
+            this.sess.eee = mark + com
+            return 0
         }
 
     }
@@ -401,7 +399,7 @@ export class Proj {
                 s: ko.s,
                 co: ko.co
             }
-            
+
             // }
         }
 
@@ -414,14 +412,13 @@ export class Proj {
         // set mat to parts
         // console.log(lpa, 'lpa')
         // ko.mid = block
-        for(let e of ko.lbs){
-            let re = new RegExp("["+ko.j+"]m[0-9]")
-        if (re.test(e)) {
-            console.log("xcc "+e)
-            ko.pats[e[0]].s=this.lms[Number(e[2])]["s"]
-            ko.pats[e[0]].co=this.lms[Number(e[2])].co
-            ko.pats[e[0]].m=e[2]
-        }
+        for (let e of ko.lbs) {
+            let re = new RegExp("[" + ko.j + "]m[0-9]")
+            if (re.test(e)) {
+                ko.pats[e[0]].s = this.lms[Number(e[2])]["s"]
+                ko.pats[e[0]].co = this.lms[Number(e[2])].co
+                ko.pats[e[0]].m = e[2]
+            }
         }
         var v
         var v2
@@ -478,7 +475,7 @@ export class Proj {
         // } else {
         //     ko.m = 0
         // }
-        let nu=Number(/[ ]m[0-9]/.exec(ko.innk)[0][1]) || 0
+        let nu = Number(/[ ]m[0-9]/.exec(ko.innk)[0][1]) || 0
         ko.s = this.lms[nu].s
         ko.co = this.lms[nu].co
 
@@ -506,7 +503,7 @@ export class Proj {
                     w: ko.pats["l"].s,
                     d: ko.d,
                     h: ko.h - s.t - s.g,
-                    x: -ko.g,
+                    x: -ko.xx,
                     y: 0,
                     z: s.g
                 },
@@ -514,7 +511,7 @@ export class Proj {
                     w: ko.s,
                     d: ko.d,
                     h: ko.h - s.t - s.g,
-                    x: ko.w - ko.pats.r.s + ko.g,
+                    x: ko.w - ko.pats.r.s + ko.xx,
                     y: 0,
                     z: s.g
                 },
@@ -524,7 +521,7 @@ export class Proj {
                     h: ko.pats.g.s,
                     x: s.l,
                     y: 0,
-                    z: -ko.g
+                    z: -ko.xz
                 },
                 t: {
                     w: ko.w - s.l - s.r,
@@ -532,8 +529,7 @@ export class Proj {
                     h: ko.s,
                     x: s["l"],
                     y: 0,
-                    // z: ko.h - s.t
-                    z: ko.h + ko.g - ko.pats.t.s
+                    z: ko.h + ko.xz - ko.pats.t.s
                 },
                 c: {
                     w: ko.w - s.l - s.r,
@@ -541,13 +537,13 @@ export class Proj {
                     h: ko.pats.c.s,
                     x: s.l,
                     y: s.f,
-                    z: ko.h/2
+                    z: ko.h / 2
                 },
                 e: {
                     w: ko.w,
                     d: ko.d,
                     h: ko.s,
-                    x: ko.g,
+                    x: ko.xx,
                     y: 0,
                     z: ko.h / 2
                 },
@@ -556,32 +552,35 @@ export class Proj {
                     d: ko.s,
                     h: ko.h - s.g - s.t,
                     x: s.l,
-                    y: ko.d - ko.pats.b.s + ko.g,
+                    y: ko.d - ko.pats.b.s + ko.xy,
                     z: s.g
                 },
                 f: {
                     w: ko.w - s.l - s.r,
                     d: ko.s,
                     h: ko.h - s.g - s.t,
-                    x: ko.g + s.l,
-                    y: -ko.s - ko.g,
-                    z: s.g,
-                    i:1
+                    x: s.l,
+                    y: -ko.s - ko.xy,
+                    z: s.g
+                    // it: 1,
+                    // ir: 1,
+                    // ig: 1,
+                    // il: 1
                 },
                 v: {
                     w: ko.s,
                     d: ko.d - s.f - s.b,
                     h: ko.h - s.t - s.g,
                     x: ko.w / 2 - s.v / 2,
-                    y: ko.g,
-                    z: ko.g + s.g
+                    y: 0,
+                    z: s.g
                 },
                 a: {
                     w: ko.w,
                     d: ko.d,
                     h: ko.s,
-                    x: ko.g,
-                    y: ko.g,
+                    x: 0,
+                    y: 0,
                     z: ko.h
                 }
             }
@@ -589,14 +588,14 @@ export class Proj {
         }
 
         this.hol += ko.nme + " - - - - - " + eval(cc(ko.w) * 10) + " " + ko.d * 10 + " " + ko.h * 10 + "\n"
-        var arra=[]
+        var arra = []
         for (var pp of ko.j) {
             let o = getp(pp, s)
             s[pp] = ko.pats[pp].s
-                ko.pats[pp] = Object.assign( ko.pats[pp], o)
-                let v = ko.pats[pp]
-                //ko.pats[pp]=Object.assign(ko.pats[pp], ko.k)
-               }
+            ko.pats[pp] = Object.assign(ko.pats[pp], o)
+            let v = ko.pats[pp]
+            //ko.pats[pp]=Object.assign(ko.pats[pp], ko.k)
+        }
     }
 
 
@@ -605,7 +604,7 @@ export class Proj {
         i = 0
         for (let e of ko.lbs.slice(2)) {
             if (/[_].+[_]/.test(v)) {
-                let f = this.poi(e,ko)
+                let f = this.poi(e, ko)
                 ko[f[1]] = f[2]
             }
         }
@@ -614,15 +613,15 @@ export class Proj {
         let f, i
         i = 0
         for (let e of ko.lbs.slice(2)) {
-            let re = new RegExp("[" + PMETER1 + "][-@]{0,1}[0-9.]")
+            let re = new RegExp("[" + PMETER1 + "][xyz]?[-@]{0,1}[0-9.]")
             if (re.test(e)) {
-             f = this.splita1(e)
-             if(f[1][0]=="@"){
-                 let v2=f[1].slice(1)
-                 ko[f[0]]= ko[f[0]] + Number(v2)
-             }else{
+                f = this.splita1(e)
+                if (f[1][0] == "@") {
+                    let v2 = f[1].slice(1)
+                    ko[f[0]] = ko[f[0]] + Number(v2)
+                } else {
 
-                 ko[f[0]] = Number(f[1])
+                    ko[f[0]] = Number(f[1])
                 }
             }
         }
@@ -729,8 +728,51 @@ export class Proj {
         }
     }
 
-    pushpull(ko) {
-        var def = {
+
+    pushpullset(ko) {
+        var def2 = {
+            b: "trgl",
+            f: "trgl",
+            l: "wx",
+            r: "w",
+            g: "hz",
+            t: "h",
+        }
+        let re, ar
+
+        // set all i3
+         re = RegExp("[" + PARTS + "][_]*[0-9]*i[,-.0-9]+", "g")
+        ar = ko.innk.match(re)
+        if (ar != null) {
+            for (let e of ar) {
+                let f = this.poi(e)
+                if(Array.isArray(f[2])){
+                    
+                }else{
+                    for(let ee of def2[f[0]]){
+                        ko.pats[f[0]]["i"+ee] = f[2]
+                    }
+                }
+            }
+        }
+        re = RegExp("[" + PARTS + "]i[lrgtbf][-.0-9]+", "g")
+        ar = ko.innk.match(re)
+        if (ar != null) {
+            for (let e of ar) {
+                let f = this.poi(e)
+                ko.pats[f[0]][f[1]] = f[2]
+            }
+        }
+        for (let e in ko.pats) {
+            if (/[f]_/.test(e)) {
+            for (let f of ["it","ir","ig","il"]) {
+                ko.pats[e][f]=ko.pats.f[f]
+            }
+        }
+    }
+    }
+    pushpulldo(ko) {
+        var pushpullpa = {
             b: "d",
             f: "dy", // change d and y
             l: "wx",
@@ -738,23 +780,20 @@ export class Proj {
             g: "hz",
             t: "h",
         }
-        for (let e of ko.lbs.slice(2)) {
-            let re = new RegExp("[" + PARTS + "]i[lrgtbf]")
-            if (re.test(e)) {
-                let f = this.poi(e)
-                ko.pats[f[0]][f[1]] = f[2]
-                for (let ff of def[f[1][1]]) {
-                    console.log("f44f"+f+"   "+ff)
+        for (let e in ko.pats) {
+            for (let f in ko.pats[e]) {
+                if (/i[lrgtbf]/.test(f)) {
+                for (let ff of pushpullpa[f[1]]) {
                     if (/[wdh]/.test(ff)) {
-                        ko.pats[f[0]][ff] -= f[2]
+                        ko.pats[e][ff] -= ko.pats[e][f]
                     } else {
-                        ko.pats[f[0]][ff] += f[2]
+                        ko.pats[e][ff] += ko.pats[e][f]
                     }
+                }
                 }
             }
         }
     }
-
 
 
     poi(e) {
@@ -784,10 +823,10 @@ export class Proj {
         } else {
             // 2222222222222222222222
             if (k.length == 1) {
-                k2=k
+                k2 = k
             } else if (k.length == 2) {
                 if (/[gtlrvcf]/.test(k[0])) {
-                    p2=k[0]
+                    p2 = k[0]
                     k2 = k.slice(1)
                 } else {
 
@@ -799,13 +838,13 @@ export class Proj {
             }
         }
 
-        let res=[p2, k2, v2, ko]
-        for(let er of res){
-            if(er==null){
-                this.sess.err=this.sess.err+"  error in::"+e
+        let res = [p2, k2, v2, ko]
+        for (let er of res) {
+            if (er == null) {
+                this.sess.err = this.sess.err + "  error in::" + e
             }
         }
-            console.log("fff"+JSON.stringify(res))
+        console.log("fff" + JSON.stringify(res))
         return res
     }
 
@@ -882,7 +921,7 @@ export class Proj {
                     } else if (e[1] == "w") {
                         di = "x"
                     }
-                    let max = ko.pats[e[0]][e[1]] + ko.pats[e[0]][di]
+                    let max = ko[e[1]]
                     max = ko[e[1]]
                     let zzz = 0
                     let nnm
@@ -896,11 +935,11 @@ export class Proj {
                                 ko.pats[nnm] = { ...ko.pats[e[0]] }
                             }
                             ko.pats[nnm][di] = zzz
-                            zzz = zzz + f[2][i]
                             if (f[2][i] == 1) {
                                 ko.pats[nnm][e[1]] = max - zzz
                                 return
                             }
+                            zzz = zzz + f[2][i]
                             ko.pats[nnm][e[1]] = f[2][i]
 
                         } else {
@@ -973,31 +1012,31 @@ export class Proj {
     }  // end createK
 
     createNparts(ko, pa) {
-        for(pa in ko.pats){
-        var nx = ko.pats[pa].nx || [1, 0]
-        var ny = ko.pats[pa].ny || [1, 0]
-        var nz = ko.pats[pa].nz || [1, 0]
-        if (eval(nx[0] + ny[0] + nz[0]) > 3) {
-            for (var j = 0; j < nx[0]; j++) {
-                for (var jj = 0; jj < ny[0]; jj++) {
-                    for (let jjj = 0; jjj < nz[0]; jjj++) {
-                        var nn = String(pa + j + jj + jjj)
-                        // alert(nn+"-"+jjj)
-                        let kk = { ...ko.pats[pa] }
-                        kk.x = ko.pats[pa].x + j * nx[1]
-                        kk.y = ko.pats[pa].y + jj * ny[1]
-                        kk.z = ko.pats[pa].z + jjj * nz[1]
-                        kk["nx"] = [1, 0]
-                        kk["ny"] = [1, 0]
-                        kk["nz"] = [1, 0]
-                        kk["nme"] = nn
+        for (pa in ko.pats) {
+            var nx = ko.pats[pa].nx || [1, 0]
+            var ny = ko.pats[pa].ny || [1, 0]
+            var nz = ko.pats[pa].nz || [1, 0]
+            if (eval(nx[0] + ny[0] + nz[0]) > 3) {
+                for (var j = 0; j < nx[0]; j++) {
+                    for (var jj = 0; jj < ny[0]; jj++) {
+                        for (let jjj = 0; jjj < nz[0]; jjj++) {
+                            var nn = String(pa + j + jj + jjj)
+                            // alert(nn+"-"+jjj)
+                            let kk = { ...ko.pats[pa] }
+                            kk.x = ko.pats[pa].x + j * nx[1]
+                            kk.y = ko.pats[pa].y + jj * ny[1]
+                            kk.z = ko.pats[pa].z + jjj * nz[1]
+                            kk["nx"] = [1, 0]
+                            kk["ny"] = [1, 0]
+                            kk["nz"] = [1, 0]
+                            kk["nme"] = nn
 
-                        ko.pats[nn] = kk
-                    } // end nz korp
-                } // end ny korp
-            } // end n korp
+                            ko.pats[nn] = kk
+                        } // end nz korp
+                    } // end ny korp
+                } // end n korp
+            }
         }
-    }
         // if(k.nz[0]>1){
         return ko
     }  // end createK
@@ -1083,7 +1122,7 @@ export class Proj {
             }
 
         } catch (error) {
-            this.sess.err = this.sess.err+"false value: " + s + " in line: " + this.line
+            this.sess.err = this.sess.err + "false value: " + s + " in line: " + this.line
         }
     }
 
@@ -1109,7 +1148,7 @@ export class Proj {
             }
 
         } catch (error) {
-            this.sess.err=this.sess.err+"false value: " + s + " in line: " + this.line
+            this.sess.err = this.sess.err + "false value: " + s + " in line: " + this.line
         }
     }
 

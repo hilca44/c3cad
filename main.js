@@ -312,6 +312,7 @@ function magie(kkk = "") {
                         s = s + myObject[e] + "\n"
                     }
                     s = s.replace(/\n\n$/g, "\n")
+                    s = s.replace(/[ ]{2,9}/g, " ")
                     let zuu = encodeqs(s)
                     let bbb = window.location.href.split("?")
                     // alert(bbb[0])
@@ -358,8 +359,6 @@ function magie(kkk = "") {
 
         if (deb == 1) {
             $("#mm2").html(dd(pr))
-
-            alert(dd(pr) + "pr")
         }
         ////////////////////////
         ////////////////////////

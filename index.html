@@ -2,6 +2,9 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
+    <meta name="viewport" 
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+
 		<title>c3cad</title>
     <link rel="shortcut icon", href="logo.svg", type="image/x-icon">
         <link rel="stylesheet" href="c3cad.css">
@@ -16,7 +19,8 @@
           <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js">
 
           </script>
-  <script type="module" src="./main.js"></script>
+  <!-- <script type="module" src="./main.js"></script> -->
+  
 	</head>
 	<body>
         <div class="number">c3cad</div>
@@ -32,18 +36,35 @@
         </div>
 
         <div id="canvas"></div>
-        <div id="gu"></div>
+        <div id="guxxxxx"></div>
         <h1>
 
           <a id="save" href="">save/redraw</a>
+          <button onclick="magie()">update</button>
         </h1>
-        <div id="mm2"></div>
         <div class="number">
           <span  id="wrong" class="r"></span>
           <span  id="err"></span>
         </div>
+        <div>
+          
+        </div>
+        
+        <textarea id="inn" ></textarea>
+        <script type="module">
+          const module ={}
+          import { magie } from "./main.js";
+          module.magie=magie
+          </script>
+          <div id="mm2"></div>
         <div></div>
-        <div></div>
+        <script>
+          $(document).keyup(function(event){
+  if ( event.which == 27 ) {
+    magie()
+    }
+})
+        </script>
 	</body>
   <footer>
     <p>

@@ -89,7 +89,7 @@ var regcomma = /[,]/
 /////////////////////////////////////////////////
 
 
-function magie(kkk = "") {
+export function magie(kkk = "") {
     let gui;
 
     var container, stats, controls, light, ligh = 1;
@@ -108,13 +108,34 @@ function magie(kkk = "") {
     var meshgroup1 = {}
     var holi = ""
     if (kkk == "") {
-        kkk = "m0 1.9 wh\nm1 2 ei\na lrgtbc 22 22 22 m0\n"
-    } else {
-        kkk = decodeqs(kkk)
+        kk= $("#inn").val()
+    }else{
+        kk=kkk
+        $("#inn").val(kk)
     }
+    
+    if (kk == "") {
+        kk = decodeqs(kkk)
+        $("#inn").val(kk)
+        
+    } 
+    if (kk == "") {
+        
+        kk = "m0 1.9 wh\nm1 2 ei\na lrgtbc 22 22 22 m0\n"
+        $("#inn").val(kk)
+    } 
+    // alert(kk)
+    let s = kk
+    // s = s.replace(/\n\n$/g, "\n")
+    s = s.replace(/[ ]{2,9}/g, " ")
+    let zuu = encodeqs(s)
+    let bbb = window.location.href.split("?")
+    // alert(bbb[0])
+    let uuu = bbb[0] + "?" + zuu
+    $("#save").attr("href", uuu)
 
     try {
-        init(kkk);
+        init(kk);
         animate();
     } catch (error) {
         alert(error + ":::" + error.stack)
@@ -285,8 +306,8 @@ function magie(kkk = "") {
         var aks = sks.split("\n")
 
         // Init gui
-        var gui = new GUI({ container: document.getElementById('gu'), injectStyles: true });
-        // var gui = new GUI({width: 600, injectStyles:true});
+        // var gui = new GUI({ container: document.getElementById('gu'), injectStyles: true });
+        var gui = new GUI({width: 60, injectStyles:true});
         if (sks != "") {
             myObject = {}
             for (let i = 0; i < aks.length; i++) {
@@ -300,39 +321,39 @@ function magie(kkk = "") {
 
         if (sks != "") {
             
-            for (let i = 0; i < aks.length; i++) {
-                // gui.add( myObject, 'z'+i );   // Text Field
-                gui.add(myObject, 'z' + i)
-                .name('z' + i)
-                .onFinishChange(value => {
-                    $("#gu").html("")
+            // for (let i = 0; i < aks.length; i++) {
+            //     // gui.add( myObject, 'z'+i );   // Text Field
+            //     gui.add(myObject, 'z' + i)
+            //     .name('z' + i)
+            //     .onFinishChange(value => {
+            //         $("#gu").html("")
                     
-                    let s = ""
-                    for (let e in myObject) {
-                        s = s + myObject[e] + "\n"
-                    }
-                    s = s.replace(/\n\n$/g, "\n")
-                    s = s.replace(/[ ]{2,9}/g, " ")
-                    let zuu = encodeqs(s)
-                    let bbb = window.location.href.split("?")
-                    // alert(bbb[0])
-                    let uuu = bbb[0] + "?" + zuu
-                    $("#save").attr("href", uuu)
-                    // return window.location.href=uuu
-                    up(s)
-                    // magie(s)
-                    proj(prr(s))
-                });
-            }
+            //         let s = ""
+            //         for (let e in myObject) {
+            //             s = s + myObject[e] + "\n"
+            //         }
+            //         s = s.replace(/\n\n$/g, "\n")
+            //         s = s.replace(/[ ]{2,9}/g, " ")
+            //         let zuu = encodeqs(s)
+            //         let bbb = window.location.href.split("?")
+            //         // alert(bbb[0])
+            //         let uuu = bbb[0] + "?" + zuu
+            //         $("#save").attr("href", uuu)
+            //         // return window.location.href=uuu
+            //         up(s)
+            //         // magie(s)
+            //         proj(prr(s))
+            //     });
+            // }
         } else {
             gui.add(myObject, 'krr0');   // Text Field
         }
         // gui.add(layers, 'update');
         
         ////////////////////////
-        gui.add(layers, 'labl');
-        gui.add(layers, 'dime');
-        gui.add(layers, 'downl');
+        // gui.add(layers, 'labl');
+        // gui.add(layers, 'dime');
+        // gui.add(layers, 'downl');
         // gui.add(layers, 'wire');
         // gui.add(layers, 'korp');
         // gui.add(layers, 'back');
@@ -639,14 +660,15 @@ function magie(kkk = "") {
         container = document.getElementById('canvas');
         renderer = new THREE.WebGLRenderer({ antialias: true });
         renderer.setPixelRatio(window.devicePixelRatio);
-        renderer.setSize(700, 500);
+        renderer.setSize(window.innerWidth, 500);
         // renderer.setSize(window.innerWidth,window.innerWidth);
-
+        
         renderer.domElement.style.position = 'absolute';
         container.appendChild(renderer.domElement);
-
+        
         labelRenderer = new CSS2DRenderer();
-        labelRenderer.setSize(700, 500);
+        labelRenderer.setSize(window.innerWidth, 500);
+        // labelRenderer.setSize(window.innerWidth,window.innerWidth);
         labelRenderer.domElement.style.position = 'absolute';
         container.appendChild(labelRenderer.domElement);
         /////
@@ -727,6 +749,7 @@ function magie(kkk = "") {
     }
 }
 
+window.magie=magie
 
 let kk
 let qs = window.location.href.split("?")[1] || ""
@@ -738,17 +761,17 @@ if (qs.length > 5) {
 }
 magie(kk)
 // Bind a change handler to the window location.
-$(window.location).bind(
-    "change",
-    function () {
-        let kk
-        let qs = window.location.href.split("?")[1] || ""
-        if (qs.length > 5) {
-            // alert(qs)
-            kk = qs.replace(/_[+]_/g, "\n").replace(/__/g, " ")
-        } else {
-            kk = ""
-        }
-        magie(kk)
-    }
-);
+// $(window.location).bind(
+//     "change",
+//     function () {
+//         let kk
+//         let qs = window.location.href.split("?")[1] || ""
+//         if (qs.length > 5) {
+//             // alert(qs)
+//             kk = qs.replace(/_[+]_/g, "\n").replace(/__/g, " ")
+//         } else {
+//             kk = ""
+//         }
+//         magie(kk)
+//     }
+// );

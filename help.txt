@@ -31,17 +31,27 @@ move
 x position x
 y position y
 z position z
-e.g., x3
+example:  x3
 
 rotate
 ---
 o[xyz] oz rotate around z axis
-e.g., oz10
+example:  oz10
 
 copy
 ---
 n[xyz]3
 
+divide
+---
+divide parts in equal pieces
+example: fdx2
+<part>d<direction><number>
+
+divide with gap
+---
+fdx2,1
+<part>d<direction><number>,<gap>
 
 variable
 --------
@@ -63,7 +73,7 @@ corners:
   | 4 . |. 7
   |.    | /
   0 --- 3 
-e.g.,
+example: 
 a 60 40 72
 b 50 40 72 a_3
 explanation: connects point 0
@@ -73,7 +83,7 @@ korpus a
 push/pull
 ---
 <part>i[lrgtfb]<value>
-e.g., il3
+example:  il3
 
 
 

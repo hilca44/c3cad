@@ -1,6 +1,7 @@
-*{
+* {
     font-family: monospace;
-    font-size: 1em;
+    font-size: 1.05em;
+    padding: 10px 20px;
 }
      div.label{
         width: auto;
@@ -24,13 +25,15 @@ html{
     background-color:rgb(134, 134, 116); 
 }
 .lil-gui {
-    --width:700px;
+    --width:100vw;
     --name-width: 12px;
-    --font-size: 14px;
-    --input-font-size: 14px;
+    /* --font-size: 14px;
+    --input-font-size: 14px; */
     --font-family: mono;
 }
 textarea{
+    padding: 10px 20px;
+
     width: 700px;
     font-size: 1.05;
     height: 20vh;
@@ -159,44 +162,29 @@ progress {display:inline; width:10%;}
   .dropdown:hover .dropbtn {background-color: #3e8e41;}
   
    /* Handle 125% and 150% Windows 10 Font Scaling on 96dpi monitors */
-   @media (min-resolution:180dpi) {
-    *{
-         font-size: 5vw;
-         /* width: 100vw; */
+   
+   @media screen and (min-resolution: 180dpi) {
+    * {
+         font-size: 36px;
+         width: 100vw;
          padding: 2;
          margin: 0;
-         zoom: 0%;
+         zoom: 0% !important;
          /* color: blue; */
          overflow-wrap: break-word;
          .dropbtn, .dropdown, input {
-             font-size: 5vw;
+             /* font-size: 5vw; */
              width: 24vw;
-         
-         }
+             
+            }
         }
         textarea{
+            zoom:0% !important;
         height: 30vh;
+        width: 95vw;
+        margin: 0px;
         }
-
-        #gu {
-            width: 100vw;
-            padding: 1px 2px;
-            /* position: fixed;
-            bottom: 10px;
-            left: 0px; */
-         font-size: 5vw;
-          }
-        #gu input {
-            margin: 10px;
-            padding: 10px ;
-            height: 60px;
-         font-size: 5vw;
-          }
-        #gu .lil-gui {
-            --width:100%;
-            --name-width: 12px;
-            --font-family: mono;
-            --padding: 5px;
-            --margin: 5px 0px;
-        }
+            #canvas {
+                width: 100vw;
+            }
 }

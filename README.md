@@ -84,6 +84,7 @@ colors
 - wh white
 - bl blue
 - ei eiche
+  
 move
 ---
 -x position x
@@ -99,6 +100,17 @@ rotate
 copy
 ---
 n[xyz]3
+
+divide
+---
+- divide parts in equal pieces
+- example: fdx2
+- <part>d<direction><number>
+
+divide with gap
+---
+- fdx2,1
+- <part>d<direction><number>,<gap>
 
 
 variable

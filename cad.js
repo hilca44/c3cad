@@ -308,6 +308,7 @@ export class Proj {
         this.makePaxyz(ko)
         this.makeKoxyz(ko)
         this.cutFront(ko)
+        this.spreadPa(ko)
         this.pushpullset(ko)  // before cutFront
         this.pushpulldo(ko)  // before cutFront
         this.makePaN(ko)
@@ -648,7 +649,24 @@ export class Proj {
         this.setMtoParts(ko)
     }
 
-
+    spreadPa(ko){
+        let re = new RegExp("[v][0-9][,]?[0-9]*")
+        for (let e of ko.lbs.slice(2)) {
+        if (re.test(e)) {
+            var f=this.poi(ko, e)
+            var  d=(ko.w-ko.pats.l.w)/f[2]
+            for(let i=0; i<f[2]; i++){
+                if(i>0){
+                    var nm="c"+String(i)
+                    ko.pats[nm]={...ko.pats.v}
+                    ko.pats[nm].x=i*d
+                }else{
+                    ko.pats.v.x=d
+                }
+            }
+        }
+    }
+    }
 
     dividePa(ko) {
         let i
@@ -689,6 +707,7 @@ export class Proj {
         }
         this.setMtoParts(ko)
     }
+
     makeKoRow(ko) {
         for (let e of ko.lbs.slice(2)) {
             let re = new RegExp("^[xyz][0-9-]+[,]")

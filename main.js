@@ -660,15 +660,16 @@ export function magie(kkk = "") {
         container = document.getElementById('canvas');
         renderer = new THREE.WebGLRenderer({ antialias: true });
         renderer.setPixelRatio(window.devicePixelRatio);
-        renderer.setSize(window.innerWidth, window.innerHeight/2);
-        // renderer.setSize(window.innerWidth,window.innerWidth);
+        renderer.setSize(700,500);
+        
+        renderer.setSize(window.innerWidth,window.innerHeight*0.6);
         
         renderer.domElement.style.position = 'absolute';
         container.appendChild(renderer.domElement);
         
         labelRenderer = new CSS2DRenderer();
-        labelRenderer.setSize(window.innerWidth, window.innerHeight);
-        // labelRenderer.setSize(window.innerWidth,window.innerWidth);
+        labelRenderer.setSize(700,500);
+        labelRenderer.setSize(window.innerWidth,window.innerHeight*0.6);
         labelRenderer.domElement.style.position = 'absolute';
         container.appendChild(labelRenderer.domElement);
         /////

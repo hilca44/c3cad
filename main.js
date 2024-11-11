@@ -610,7 +610,6 @@ export function magie(kkk = "") {
         /////
         controls = new OrbitControls(camera, renderer.domElement, labelRenderer.domElement);
         const controls2 = new OrbitControls(camera, labelRenderer.domElement);
-        window.addEventListener('resize', onWindowResize);
 
         const pointer = new THREE.Vector2();
         var ax = new THREE.AxesHelper(bb.x)

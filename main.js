@@ -14,8 +14,8 @@ import { Proj } from "./cad.js";
 
 // 
 function dd(pp) {
-    var rr 
-    rr= JSON.stringify(pp)
+    var rr
+    rr = JSON.stringify(pp)
     rr = rr.replace(/[<]/igm, "gt")
     return rr
 
@@ -108,22 +108,22 @@ export function magie(kkk = "") {
     var meshgroup1 = {}
     var holi = ""
     if (kkk == "") {
-        kk= $("#inn").val()
-    }else{
-        kk=kkk
+        kk = $("#inn").val()
+    } else {
+        kk = kkk
         $("#inn").val(kk)
     }
-    
+
     if (kk == "") {
         kk = decodeqs(kkk)
         $("#inn").val(kk)
-        
-    } 
+
+    }
     if (kk == "") {
-        
+
         kk = "m0 1.9 wh\nm1 2 ei\na lrgtbc 22 22 22 m0\n"
         $("#inn").val(kk)
-    } 
+    }
     // alert(kk)
     let s = kk
     // s = s.replace(/\n\n$/g, "\n")
@@ -142,19 +142,6 @@ export function magie(kkk = "") {
     }
     let m2 = ""
     let i = 0
-    // for (let e of pr.lms) {
-    //     let t = e
-    //     m2 += "<p>m" + t.nme + ", " + t.s + " cm ="
-    //         + t.m2.toFixed(2) + " m2 (Uml " + t.uml.toFixed(0) +
-    //         "m ) <br>= " + cc(t.m2 * t.p).toFixed(2) + "Eur platten + " + cc(t.uml * 0.6).toFixed(2) + "Eur Umleimer =" + cc(t.m2 * t.p + t.uml * 0.6).toFixed(2) + " Euro</p>"
-    //     i++
-    // }
-
-    // $("#mm2").html(m2)
-    // $("#bb").html("Bounding Box" + dd(bb))
-    // $("#prt").html("Bounding Box" + dd(pr))
-
-    // $("#angtex").html("Anb" + pr.angtex)
 
 
     function init(sks = "") {
@@ -169,17 +156,7 @@ export function magie(kkk = "") {
         camera.add(light);
 
         var group = new THREE.Group();
-        // group.position.y = 50;
         const loader = new THREE.TextureLoader();
-        // const texture = loader.load('textures/uv_grid_opengl.jpg');
-        // var texture 
-        // texture.colorSpace = THREE.SRGBColorSpace;
-
-        // it's necessary to apply these settings in order to correctly display the texture on a shape geometry
-
-        // texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
-        // texture.repeat.set(0.008, 0.008);
-
 
         const resTracker = new ResourceTracker();
 
@@ -241,130 +218,101 @@ export function magie(kkk = "") {
             mess.length = 0;  // clears the cubes array
 
             resTracker.dispose()
-            let pr=prr(s)
+            let pr = prr(s)
             proj(pr)
             animate()
             gu(s)
             // magie(s)
-    }
-
-    const layers = {
-        'labl': function () {
-            camera.layers.toggle(0);
-        },
-        'dime': function () {
-            camera.layers.toggle(1);
-        },
-        'wire': function () {
-            camera.layers.toggle(5);
-        },
-        'korp': function () {
-            camera.layers.toggle(2);
-        },
-        'back': function () {
-            camera.layers.toggle(3);
-        },
-        'fron': function () {
-            camera.layers.toggle(4);
-        },
-        'B': function () {
-            camera.position.set(0, bb.x, bb.z / 2);
-            controls.update()
-        },
-        'F': function () {
-            camera.position.set(0, -bb.x, bb.z / 2);
-            controls.update()
-        },
-        'R': function () {
-            camera.position.set(-bb.x, -bb.y, bb.z / 2);
-            controls.update()
-        },
-        'expl': function () {
-            explodeKorp = 22
-            controls.update()
-
-        },
-
-        'update': function () {
-            let s = myObject.join("\n")
-            s = s.replace(/\n\n$/g, "\n")
-
-            magie(s)
-            // pr=prr(myObject.mat+"\n"+myObject.z)
-            // proj(pr)
-            // animate()
-            // controls.update()
-
-        },
-        'downl': function () {
-            exportToObj()
         }
-    };
 
-    var myObject
-    function gu(sks){
-        var aks = sks.split("\n")
+        const layers = {
+            'labl': function () {
+                camera.layers.toggle(0);
+            },
+            'dime': function () {
+                camera.layers.toggle(1);
+            },
+            'wire': function () {
+                camera.layers.toggle(5);
+            },
+            'korp': function () {
+                camera.layers.toggle(2);
+            },
+            'back': function () {
+                camera.layers.toggle(3);
+            },
+            'fron': function () {
+                camera.layers.toggle(4);
+            },
+            'B': function () {
+                camera.position.set(0, bb.x, bb.z / 2);
+                controls.update()
+            },
+            'F': function () {
+                camera.position.set(0, -bb.x, bb.z / 2);
+                controls.update()
+            },
+            'R': function () {
+                camera.position.set(-bb.x, -bb.y, bb.z / 2);
+                controls.update()
+            },
+            'expl': function () {
+                explodeKorp = 22
+                controls.update()
 
-        // Init gui
-        // var gui = new GUI({ container: document.getElementById('gu'), injectStyles: true });
-        var gui = new GUI({width: 60, injectStyles:true});
-        if (sks != "") {
-            myObject = {}
-            for (let i = 0; i < aks.length; i++) {
-                myObject["z" + i] = aks[i];
+            },
 
+            'update': function () {
+                let s = myObject.join("\n")
+                s = s.replace(/\n\n$/g, "\n")
+
+                magie(s)
+            },
+            'downl': function () {
+                exportToObj()
             }
+        };
+
+        var myObject
+        function gu(sks) {
+            var aks = sks.split("\n")
+
+            // Init gui
+            // var gui = new GUI({ container: document.getElementById('gu'), injectStyles: true });
+            var gui = new GUI({ width: 60, injectStyles: true });
+            if (sks != "") {
+                myObject = {}
+                for (let i = 0; i < aks.length; i++) {
+                    myObject["z" + i] = aks[i];
+
+                }
+            }
+
+
+
+
+            if (sks != "") {
+
+            } else {
+                gui.add(myObject, 'krr0');   // Text Field
+            }
+            // gui.add(layers, 'update');
+
+            ////////////////////////
+            gui.add(layers, 'labl');
+            gui.add(layers, 'dime');
+            gui.add(layers, 'downl');
+            // gui.add(layers, 'wire');
+            // gui.add(layers, 'korp');
+            // gui.add(layers, 'back');
+            gui.add(layers, 'fron');
+            // gui.add(layers, 'B');
+            // gui.add(layers, 'F');
+            // gui.add(layers, 'R');
+            // gui.add(layers, 'expl', 2, 4, 22);
+            // gui.add( myObject, 'mat' );   // Text Field
         }
-        
-
-
-
-        if (sks != "") {
-            
-            // for (let i = 0; i < aks.length; i++) {
-            //     // gui.add( myObject, 'z'+i );   // Text Field
-            //     gui.add(myObject, 'z' + i)
-            //     .name('z' + i)
-            //     .onFinishChange(value => {
-            //         $("#gu").html("")
-                    
-            //         let s = ""
-            //         for (let e in myObject) {
-            //             s = s + myObject[e] + "\n"
-            //         }
-            //         s = s.replace(/\n\n$/g, "\n")
-            //         s = s.replace(/[ ]{2,9}/g, " ")
-            //         let zuu = encodeqs(s)
-            //         let bbb = window.location.href.split("?")
-            //         // alert(bbb[0])
-            //         let uuu = bbb[0] + "?" + zuu
-            //         $("#save").attr("href", uuu)
-            //         // return window.location.href=uuu
-            //         up(s)
-            //         // magie(s)
-            //         proj(prr(s))
-            //     });
-            // }
-        } else {
-            gui.add(myObject, 'krr0');   // Text Field
-        }
-        // gui.add(layers, 'update');
-        
-        ////////////////////////
-        gui.add(layers, 'labl');
-        gui.add(layers, 'dime');
-        gui.add(layers, 'downl');
-        // gui.add(layers, 'wire');
-        // gui.add(layers, 'korp');
-        // gui.add(layers, 'back');
-        gui.add(layers, 'fron');
-        // gui.add(layers, 'B');
-        // gui.add(layers, 'F');
-        // gui.add(layers, 'R');
-        // gui.add(layers, 'expl', 2, 4, 22);
-        // gui.add( myObject, 'mat' );   // Text Field
-    }
-    gu(sks)
+        gu(sks)
         ////////////////////////
         ////////////////////////
         ////////////////////////
@@ -404,11 +352,11 @@ export function magie(kkk = "") {
         ////////////////////////
         // korpus //////////////////////
         function proj(pr) {
-            if(pr.sess.eee.length > 1){
+            if (pr.sess.eee.length > 1) {
                 $("#err").html(pr.sess.eee)
                 $("#wrong").html("Wrong input:")
-                
-            }else{
+
+            } else {
                 $("#err").html("")
                 $("#wrong").html("")
 
@@ -542,19 +490,6 @@ export function magie(kkk = "") {
 
         var a = Math.PI / 180
 
-        // const extrudeSettings = { depth: 8, bevelEnabled: true, bevelSegments: 2, steps: 2, bevelSize: 1, bevelThickness: 1 };
-        // const triangleShape = new THREE.Shape()
-        //           .moveTo( 0, 0 )
-        //           .lineTo( 160, 0 )
-        //           .lineTo( 160, 80 )
-        //           .lineTo( 100, 80 )
-        //           .lineTo( 0, 10 )
-        //           .lineTo( 0, 0 ); // close path
-        //           addShape( triangleShape, extrudeSettings,
-        //             0x8080f0, 0, 0, 0, 0, 0, 0, 1 );
-        //         group.rotateX(90*a)
-
-        // scene.add(group)
 
 
         //////////////////////////////////
@@ -655,35 +590,27 @@ export function magie(kkk = "") {
             g2.add(plab)
             return g2
         }
-     
+
         //////////////////////////////////
         container = document.getElementById('canvas');
         renderer = new THREE.WebGLRenderer({ antialias: true });
         renderer.setPixelRatio(window.devicePixelRatio);
-        renderer.setSize(700,500);
-        
-        renderer.setSize(window.innerWidth,window.innerHeight*0.6);
-        
+        renderer.setSize(700, 500);
+
+        renderer.setSize(window.innerWidth, window.innerHeight * 0.6);
+
         renderer.domElement.style.position = 'absolute';
         container.appendChild(renderer.domElement);
-        
+
         labelRenderer = new CSS2DRenderer();
-        labelRenderer.setSize(700,500);
-        labelRenderer.setSize(window.innerWidth,window.innerHeight*0.6);
+        labelRenderer.setSize(700, 500);
+        labelRenderer.setSize(window.innerWidth, window.innerHeight * 0.6);
         labelRenderer.domElement.style.position = 'absolute';
         container.appendChild(labelRenderer.domElement);
         /////
         controls = new OrbitControls(camera, renderer.domElement, labelRenderer.domElement);
-        // controls = new TrackballControls( camera, renderer.domElement );
-        // stats = new Stats();
-        // document.body.appendChild(stats.dom);
         const controls2 = new OrbitControls(camera, labelRenderer.domElement);
         window.addEventListener('resize', onWindowResize);
-        // var inp = document.getElementById("ccc")
-        // inp.addEventListener("click", up)
-        // var ta = document.getElementById("cadi")
-        // ta.addEventListener("click", up)
-
 
         const pointer = new THREE.Vector2();
         var ax = new THREE.AxesHelper(bb.x)
@@ -734,12 +661,6 @@ export function magie(kkk = "") {
         return labl
     }
 
-    function onWindowResize() {
-        // camera.aspect = window.innerWidth / window.innerHeight;
-        // camera.updateProjectionMatrix();
-        // renderer.setSize(window.innerWidth, window.innerHeight);
-    }
-
     function animate() {
 
         requestAnimationFrame(animate, renderer.domElement);
@@ -750,7 +671,7 @@ export function magie(kkk = "") {
     }
 }
 
-window.magie=magie
+window.magie = magie
 
 let kk
 let qs = window.location.href.split("?")[1] || ""
@@ -761,18 +682,3 @@ if (qs.length > 5) {
     kk = ""
 }
 magie(kk)
-// Bind a change handler to the window location.
-// $(window.location).bind(
-//     "change",
-//     function () {
-//         let kk
-//         let qs = window.location.href.split("?")[1] || ""
-//         if (qs.length > 5) {
-//             // alert(qs)
-//             kk = qs.replace(/_[+]_/g, "\n").replace(/__/g, " ")
-//         } else {
-//             kk = ""
-//         }
-//         magie(kk)
-//     }
-// );

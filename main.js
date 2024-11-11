@@ -351,13 +351,13 @@ export function magie(kkk = "") {
         // gui.add(layers, 'update');
         
         ////////////////////////
-        // gui.add(layers, 'labl');
-        // gui.add(layers, 'dime');
-        // gui.add(layers, 'downl');
+        gui.add(layers, 'labl');
+        gui.add(layers, 'dime');
+        gui.add(layers, 'downl');
         // gui.add(layers, 'wire');
         // gui.add(layers, 'korp');
         // gui.add(layers, 'back');
-        // gui.add(layers, 'fron');
+        gui.add(layers, 'fron');
         // gui.add(layers, 'B');
         // gui.add(layers, 'F');
         // gui.add(layers, 'R');
@@ -660,14 +660,14 @@ export function magie(kkk = "") {
         container = document.getElementById('canvas');
         renderer = new THREE.WebGLRenderer({ antialias: true });
         renderer.setPixelRatio(window.devicePixelRatio);
-        renderer.setSize(window.innerWidth, 500);
+        renderer.setSize(window.innerWidth, window.innerHeight/2);
         // renderer.setSize(window.innerWidth,window.innerWidth);
         
         renderer.domElement.style.position = 'absolute';
         container.appendChild(renderer.domElement);
         
         labelRenderer = new CSS2DRenderer();
-        labelRenderer.setSize(window.innerWidth, 500);
+        labelRenderer.setSize(window.innerWidth, window.innerHeight);
         // labelRenderer.setSize(window.innerWidth,window.innerWidth);
         labelRenderer.domElement.style.position = 'absolute';
         container.appendChild(labelRenderer.domElement);

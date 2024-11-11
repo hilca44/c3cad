@@ -729,7 +729,7 @@ export class Proj {
     }
     makeKoN(ko) {
         for (let e of ko.lbs.slice(2)) {
-            if (/^n[xyz]/.test(e)) {
+            if (/^n[xyz][0-9][,]?/.test(e)) {
                 var f = this.poi(ko, e)
                 if (/[,]/.test(e)) {
                     ko[f[1]] = f[2]
@@ -742,7 +742,7 @@ export class Proj {
                     } else if (f[1][1] == "z") {
                         di = ko.h
                     }
-                    let a = [f[2], di]
+                    let a = [f[2], 0]
                     ko[f[1]] = a
                 }
             }

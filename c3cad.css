@@ -39,7 +39,7 @@ html{
 }
 textarea{
     padding: 10px 20px;
-    background-color: lightyellow;
+    background-color: #666;
     width: 100vw;
     /* font-size: 1.05; */
     height: 40vh;
@@ -52,6 +52,7 @@ textarea{
     position: fixed;
     left: 0;
     top: 30px;
+    overflow: scroll;
     z-index: 3;
 }
 
@@ -169,9 +170,13 @@ progress {display:inline; width:10%;}
     height: 80vh;
     overflow: scroll;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
+    z-index: 16;
   }
-  
+  #ddc {
+    height: 888px;
+    z-index: 22;
+    overflow: scroll;
+  }
   /* Links inside the dropdown */
   .dropdown-content a {
     color: black;

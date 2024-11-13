@@ -170,6 +170,7 @@ export function magie(kkk = "") {
 
         scene = new THREE.Scene();
         scene.background = new THREE.Color("ivory");
+        scene.background = new THREE.Color("#666");
 
         scene.add(group);
         light = new THREE.PointLight(0xffffff, 3, 0, 0);
@@ -327,7 +328,7 @@ export function magie(kkk = "") {
         pr = prr(s)
 
         if (deb == 1) {
-            $("#mm2").html(dd(pr))
+            $("#ddc").html(dd(pr))
         }
         ////////////////////////
         ////////////////////////
@@ -337,12 +338,11 @@ export function magie(kkk = "") {
          * @param {*} k
          * @returns
          */
-        function createK(k) {
+        function createK(k,nme) {
             var g = new THREE.Group()
             // korpus parts ///////////
-            for (var e1 in k.pats) {
-                var e = Object.assign({}, k.pats[e1])
-                let n = makeM(k, e1, e)
+            for (let e1 in k.pats) {
+                let n = makeM(k, e1, k.pats[e1])
                 g.add(n)
             }  // end korpus parts
             return g
@@ -502,12 +502,12 @@ export function magie(kkk = "") {
                 lay = 4
             }
 
-            let w = e.w
-            let d = e.d
-            let h = e.h
-            let x = e.x
-            let y = e.y
-            let z = e.z
+            var w = Number(e.w)
+            let d = Number(e.d)
+            let h = Number(e.h)
+            let x = Number(e.x)
+            let y = Number(e.y)
+            let z = Number(e.z)
 
             let ox = e.ox || 0
             let oy = e.oy || 0
@@ -538,7 +538,8 @@ export function magie(kkk = "") {
                 y: ((d * offset) + y),
                 z: ((h * offset) + z)
             }
-            let holir = String("-".concat("x", e1, w, d, h));
+            let holir = e1+" "+(e.w*10).toFixed(0)+" "+(e.d*10).toFixed(0)
+            holir+=" "+(e.h*10).toFixed(0)
             let plab
             plab = makeLabel(holir, 1 + po.x, 0, 0)
             plab.layers.set(1);
@@ -621,7 +622,7 @@ export function magie(kkk = "") {
         link.style.display = 'none';
         document.body.appendChild(link);
         // camera.fov=100.0
-        camera.position.y = -(bb.x + bb.y)
+        camera.position.y = -(bb.x + bb.z)
         camera.position.x = -bb.x * 1.2
 
         function exportToObj() {

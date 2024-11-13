@@ -1,4 +1,6 @@
+
 import { } from "./config.js";
+import { pali } from "./partslist.js"
 var s = {}
 var pp = "public/cad/"
 var regcomma = /[,]/
@@ -126,11 +128,7 @@ export class Proj {
     }
 
     getall() {
-        
-        // if () {
-        //     alert('A file called sample.txt already exists in your home directory.');
-            
-        // }
+        pali(this)
         return this
     }
 
@@ -545,20 +543,20 @@ export class Proj {
         function getp(pp, s) {
             var p = {
                 l: {
-                    w: ko.pats["l"].s,
-                    d: ko.d,
-                    h: ko.h - s.t - s.g,
-                    x: -ko.xx,
-                    y: s.f,
-                    z: s.g
+                    w: Number(ko.pats["l"].s),
+                    d: Number(ko.d),
+                    h: Number(ko.h - s.t - s.g),
+                    x: Number(-ko.xx),
+                    y: Number(s.f),
+                    z: Number(s.g),
                 },
                 r: {
-                    w: ko.s,
-                    d: ko.d,
-                    h: ko.h - s.t - s.g,
-                    x: ko.w - ko.pats.r.s + ko.xx,
-                    y: s.f,
-                    z: s.g
+                    w: Number(ko.s),
+                    d: Number(ko.d),
+                    h: Number(ko.h - s.t - s.g),
+                    x: Number(ko.w - ko.pats.r.s + ko.xx),
+                    y: Number(s.f),
+                    z: Number(s.g)
                 },
                 g: {
                     w: ko.w - s.l - s.r,

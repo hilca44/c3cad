@@ -126,6 +126,11 @@ export class Proj {
     }
 
     getall() {
+        
+        // if () {
+        //     alert('A file called sample.txt already exists in your home directory.');
+            
+        // }
         return this
     }
 
@@ -1066,6 +1071,11 @@ export class Proj {
             koo = lk[0]
             p2 = lk[1][0]
             k2 = lk[1].slice(2)
+        }else if (/^[lrgtfbcv]/.test(k)) {
+            p2=k[0]
+            if (k.length == 2) {
+                k2=k[1]
+            }
         } else {
             // 2222222222222222222222
             if (k.length == 1) {

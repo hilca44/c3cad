@@ -684,12 +684,20 @@ export class Proj {
         let f, i
         i = 0
         for (let e of ko.lbs.slice(2)) {
-            let re = new RegExp("^[" + PMETER1 + "][xyz]?[@]?[-]?[0-9.]")
+            let re = new RegExp("^[" + PMETER1 + "][xyz]?[@]?[-]?[0-9.,]")
             if (re.test(e)) {
                 f = this.splita1(ko, e)
                 if (f[1][0] == "@") {
                     let v2 = f[1].slice(1)
                     ko[f[0]] = ko[f[0]] + Number(v2)
+                } else if(/[,]/.test(e)){
+                    let f = this.poi(ko, e)
+                    let i=0
+                    for(let b of f[2]){
+                        this.oks[f[0]+String(i)]={...ko}
+                        this.oks[f[0]+String(i)][f[1]]=b
+                        i++
+                    }
                 } else {
 
                     ko[f[0]] = Number(f[1])

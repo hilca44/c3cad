@@ -92,3 +92,28 @@ auto variable
 write the name of a previous Korpus
 in Upper case letters makes a copy.
 you can override parameter
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -86,27 +86,49 @@ var g8
 // session
 var s = {}
 var regcomma = /[,]/
+/////////////////////////////////////////
+let gui;
+var container, stats, controls, light, ligh = 1;
+var camera, scene, renderer, labelRenderer;
+let theta = 0;
+var radius = 0;
+var bb = { x: 0, y: 0, z: 0 }
+var explodeKorp = 1
+var lgeos = {}
+var mess = []
+
+var group = new THREE.Group();
+const loader = new THREE.TextureLoader();
+
+const resTracker = new ResourceTracker();
+
+const track = resTracker.track.bind(resTracker);
+var colors = {
+    fi: "cornsilk",
+    wh: "white",
+    bu: "wheat",
+    gr: "snow",
+    bl: "cornflowerblue",
+    ei: "burlywood"
+}
+var mat = new THREE.MeshLambertMaterial({ color: '#336633' });
+        let edgmat = new THREE.LineBasicMaterial({ color: 0x000000 });
+        let edg, mes, wir
+        var koall = new THREE.Group()
+
+///////
+// new Proj(vorl, fn3).getall(function (pr) {
+
+var pppp = []
+var paarr = []
+var meshgroup1 = {}
+var holi = ""
 /////////////////////////////////////////////////
 
 
 export function magie(kkk = "") {
-    let gui;
-
-    var container, stats, controls, light, ligh = 1;
-    var camera, scene, renderer, labelRenderer;
-    let theta = 0;
-    var radius = 0;
-    var bb = { x: 0, y: 0, z: 0 }
-    var explodeKorp = 1
-    var lgeos = {}
-    var mess = []
-    ///////
-    // new Proj(vorl, fn3).getall(function (pr) {
-
-    var pppp = []
-    var paarr = []
-    var meshgroup1 = {}
-    var holi = ""
+    
+    
     if (kkk == "") {
         kk = $("#inn").val()
     } else {
@@ -142,9 +164,14 @@ export function magie(kkk = "") {
     }
     let m2 = ""
     let i = 0
+}
 
-
-    function init(sks = "") {
+   export function init(sks = "") {
+       if(sks==1 ){
+            sks= $("#inn").val() 
+            up(sks)
+            return
+    }
         let qs = "?" + encodeqs(sks)
         let pr
         camera = new THREE.PerspectiveCamera(50, 700 / 500, 1, 100000);
@@ -154,13 +181,6 @@ export function magie(kkk = "") {
         // camera.layers.enable(1);
         var light = new THREE.PointLight(0xffffff, 2.5, 0, 0);
         camera.add(light);
-
-        var group = new THREE.Group();
-        const loader = new THREE.TextureLoader();
-
-        const resTracker = new ResourceTracker();
-
-        const track = resTracker.track.bind(resTracker);
 
         camera.layers.enable(2);
         camera.layers.enable(3);
@@ -189,28 +209,18 @@ export function magie(kkk = "") {
         camera.add(light);
         // camera.add(light2);
 
-        var colors = {
-            fi: "cornsilk",
-            wh: "white",
-            bu: "wheat",
-            gr: "snow",
-            bl: "cornflowerblue",
-            ei: "burlywood"
-        }
+       
         const geometry = new THREE.BoxGeometry();
         ////////////////////////////////////
         ///////////////////////////////////////
 
-        var mat = new THREE.MeshLambertMaterial({ color: '#336633' });
-        let edgmat = new THREE.LineBasicMaterial({ color: 0x000000 });
-        let edg, mes, wir
+        
 
         let tra, ee
 
         meshgroup1 = new THREE.Group("cc")
 
         var koarr = []
-        var koall = new THREE.Group()
         //
         function up(s) {
             for (const cube of mess) {
@@ -221,8 +231,8 @@ export function magie(kkk = "") {
             resTracker.dispose()
             let pr = prr(s)
             proj(pr)
-            animate()
-            gu(s)
+            // animate()
+            // gu(s)
             // magie(s)
         }
 
@@ -669,9 +679,9 @@ export function magie(kkk = "") {
         renderer.render(scene, camera);
         labelRenderer.render(scene, camera);
     }
-}
 
 window.magie = magie
+window.init = init
 
 let kk
 let qs = window.location.href.split("?")[1] || ""

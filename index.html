@@ -41,13 +41,13 @@
         <div id="canvas"></div>
         <div id="guxxxxx"></div>
         <div class="fixsav">
+          <div>
 
-          <h1>
-            
-            <a id="save" href="">save</a>
-            <button onclick="magie()">update [q]</button>
-          </h1>
-          <div class="number">
+            <a id="save" class="btn" href="">save</a>
+          </div>
+          <button class="btn" onclick="magie()">update [q]</button>
+
+          <div class="fixbot">
             <span  id="wrong" class="r"></span>
             <span  id="err"></span>
           </div>
@@ -62,18 +62,38 @@
         <div id="ddc"></div>
 
 
-        <script type="module">
-          const module = {}
-          import { magie } from "./main.js";
-          module.magie = magie
+        <!-- <script type="module">
+          // const module = {}
+          // import { magie } from "./main.js";
+          // module.magie = magie
           $(document).keypress(function (event) {
             // if ( event.which == 27 ) {
             if (event.key == "q") {
               event.preventDefault()
-              magie()
+              window.location.href=$("#save").attr("href")
             }
           })
-        </script>
+        </script> -->
+
+<script type="module">
+  const module = {}
+  import { init } from "./main.js";
+  module.init = init
+  $(document).keyup(function (event) {
+    if ( event.key == "Control" ) {
+      // if ( event.which == 27 ) {
+    // if (event.key == "w") {
+      // event.preventDefault()
+      init(1)
+    }
+    if (event.key == "Escape") {
+              event.preventDefault()
+              window.location.href=$("#save").attr("href")
+            }
+  })
+</script>
+
+
 	</body>
   <footer>
     <p>

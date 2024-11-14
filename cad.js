@@ -4,9 +4,7 @@ import { pali } from "./partslist.js"
 var s = {}
 var pp = "public/cad/"
 var regcomma = /[,]/
-const PARTS = ["l","r","g","t","f","b","c","v","e",
-    "u"
-]
+const PARTS = "lrgtbfcve"
 const PMETER1 = "xyzwdhmgo"
 const CHARS = "_.,@"
 
@@ -96,7 +94,24 @@ export class Proj {
         this.eur = 0
         this.m2 = {}
         this.qa = 8
-        this.angtex = ""
+        this.rr = {
+            parts: "^[" + PARTS + "]+$",
+            numm: "^[0-9]+$",
+            kormat: "^m[0-9]$",
+            kowdh: "[0-9][_][a-z]",
+            koxyz: "^[" + PMETER1 + "][xyz]?[@]?[-]?[0-9.,]+$",
+            paxyz: "[" + PARTS + "][" + PMETER1 + "][=]?[@]?[-+/*]?[0-9.,]+",
+            spreadv: "[v][0-9][,]?[0-9]*",
+            dividep: "[" + PARTS + "]d[xyz][0-9][,]?[0-9]*",
+            rowko: "^[xyz][0-9-]+[,]",
+            parow: "[" + PARTS + "][xyz][0-9-]+[,]",
+            conn: "[_][0-9]",
+            koN: "^n[xyz][0-9][,]?",
+            paN: "[" + PARTS + "]n[xyz][0-9]",
+            pupuko: " i[gt][0-9]+",
+            pupudo: "i[lrgtbf]",
+            pushpu: "[" + PARTS + "]i[-]?[.0-9]+"
+        }
         this.lastko = ""
         this.vs = {} // all obj key=first entry
         this.matlegend = ""
@@ -104,7 +119,7 @@ export class Proj {
         this.oosc = {}
         this.ok = {}
         this.oks = {}
-        this.aks =[]
+        this.aks = []
         this.ovs = {}
         this.oinko = {}
         this.stl = []
@@ -155,7 +170,7 @@ export class Proj {
                 ko = this.new__Korp(m)
                 if (ko == 0) { return 0 }
                 // if(/\./.test(ko.nme)){
-                    
+
                 //     let paren=ko.nme.split(".")[0]
                 //     let chi=ko.nme.split(".")[1]
                 //     let pa={}
@@ -322,7 +337,7 @@ export class Proj {
         this.makeParts_step2(ko)
         this.makeKoRow(ko)
         this.makePaRow(ko)
-        
+
         this.connect(ko)
         this.makePaxyz(ko)
         this.makeKoxyz(ko)
@@ -365,23 +380,41 @@ export class Proj {
         ko.nme = ko.lbs[0]
         ko.j = ko.lbs[1]
         // alert(ko.lbs)
-        if(/[_]/.test(ko.lbs[2])){
-          
+        if (/[_]/.test(ko.lbs[2])) {
+
         }
-            if (/^[0-9]+$/.test(ko.lbs[2])) {
-                ko.w = Number(ko.lbs[2])
-            }
-            if (/^[0-9]+$/.test(ko.lbs[3])) {
-                ko.d = Number(ko.lbs[3])
-            }
-            if (/^[0-9]+$/.test(ko.lbs[4])) {
-                ko.h = Number(ko.lbs[4])
-            }
-        
+        if (/^[0-9]+$/.test(ko.lbs[2])) {
+            ko.w = Number(ko.lbs[2])
+        }
+        if (/^[0-9]+$/.test(ko.lbs[3])) {
+            ko.d = Number(ko.lbs[3])
+        }
+        if (/^[0-9]+$/.test(ko.lbs[4])) {
+            ko.h = Number(ko.lbs[4])
+        }
+
 
     }
     markwrong(ko) {
+        var i
+        this.sess.eee = ""
+        for (let e of ko.lbs.slice(1)) {
+            i = 0
+            for (let r in this.rr) {
+                let re = new RegExp(this.rr[r])
 
+                if (re.test(e)) {
+
+                    i++
+                    // this.sess.eee +="("+this.rr[r]+ "  " + e+")"
+                }
+            }
+            if (i == 0) {
+                
+                this.sess.eee +=" <mark> " + e+"</mark>"
+                // return 0
+            }
+        }
         // let mark, com, re
         // let bs = ko.lbs
         // for (let e of bs[1]) {
@@ -510,12 +543,12 @@ export class Proj {
         // } else {
         //     ko.m = 0
         // }
-        let nu = ko.innk.match(/[ ]m[0-9]/)
+        let nu = ko.innk.match(this.rr.kormat)
         let nu2
-        if(nu==null){
-            nu2=0
-        }else{
-            nu2=Number(nu[0][nu.length -1])
+        if (nu == null) {
+            nu2 = 0
+        } else {
+            nu2 = Number(nu[0][nu.length - 1])
 
         }
         // let nu = Number(/[ ]m[0-9]/.exec(ko.innk)[0][1]) || 0
@@ -633,8 +666,8 @@ export class Proj {
                     x: 0,
                     y: 0,
                     z: 0
+                }
             }
-        }
             return p[pp]
         }
 
@@ -664,22 +697,22 @@ export class Proj {
         let f, i
         i = 0
         for (let ee of ko.lbs) {
-            let re = new RegExp("[0-9][_][a-z]")
+            let re = new RegExp(this.rr.kowdh)
             if (re.test(ee)) {
-                let e=this.getDist(ko, ee)
+                let e = this.getDist(ko, ee)
                 // alert(e)
-                if (e[2]=="") {
-                    e[2]="wdh"
+                if (e[2] == "") {
+                    e[2] = "wdh"
                 }
                 for (let i = 0; i < e[2].length; i++) {
-                    const x= e[2][i];
-                    ko[x]=e[1][x]-e[0][x]
-                    
+                    const x = e[2][i];
+                    ko[x] = e[1][x] - e[0][x]
+
                 }
-                ko.x=e[0].w
-                ko.y=e[0].d
-                ko.z= e[0].h
-            
+                ko.x = e[0].w
+                ko.y = e[0].d
+                ko.z = e[0].h
+
             }
         }
     }
@@ -687,18 +720,18 @@ export class Proj {
         let f, i
         i = 0
         for (let e of ko.lbs.slice(2)) {
-            let re = new RegExp("^[" + PMETER1 + "][xyz]?[@]?[-]?[0-9.,]")
+            let re = new RegExp(this.rr.koxyz)
             if (re.test(e)) {
                 f = this.splita1(ko, e)
                 if (f[1][0] == "@") {
                     let v2 = f[1].slice(1)
                     ko[f[0]] = ko[f[0]] + Number(v2)
-                } else if(/[,]/.test(e)){
+                } else if (/[,]/.test(e)) {
                     let f = this.poi(ko, e)
-                    let i=0
-                    for(let b of f[2]){
-                        this.oks[f[0]+String(i)]={...ko}
-                        this.oks[f[0]+String(i)][f[1]]=b
+                    let i = 0
+                    for (let b of f[2]) {
+                        this.oks[f[0] + String(i)] = { ...ko }
+                        this.oks[f[0] + String(i)][f[1]] = b
                         i++
                     }
                 } else {
@@ -713,18 +746,18 @@ export class Proj {
         let i
         i = 0
         for (let e of ko.lbs) {
-            let re = new RegExp("[" + PARTS + "][" + PMETER1 + "][=]?[@]?[-+/*]?[0-9.,]+")
+            let re = new RegExp(this.rr.paxyz)
             if (re.test(e)) {
                 if (/@/.test(e)) {
                     let f = e.split("@")
                     let v2 = Number(f[1])
                     ko.pats[e[0]][e[1]] = ko.pats[e[0]][e[1]] + v2
-                } else if(/[,]/.test(e)){
+                } else if (/[,]/.test(e)) {
                     let f = this.poi(ko, e)
-                    let i=0
-                    for(let b of f[2]){
-                        ko.pats[f[0]+String(i)]={...ko.pats[f[0]]}
-                        ko.pats[f[0]+String(i)][f[1]]=b
+                    let i = 0
+                    for (let b of f[2]) {
+                        ko.pats[f[0] + String(i)] = { ...ko.pats[f[0]] }
+                        ko.pats[f[0] + String(i)][f[1]] = b
                         i++
                     }
                 } else {
@@ -737,33 +770,33 @@ export class Proj {
         this.setMtoParts(ko)
     }
 
-    spreadPa(ko){
-        let re = new RegExp("[v][0-9][,]?[0-9]*")
+    spreadPa(ko) {
+        let re = new RegExp(this.rr.spreadv)
         for (let e of ko.lbs.slice(2)) {
-        if (re.test(e)) {
-            var f=this.poi(ko, e)
-            var  d=(ko.w-ko.pats.l.w)/f[2]
-            for(let i=0; i<f[2]; i++){
-                if(i>0){
-                    var nm="c"+String(i)
-                    ko.pats[nm]={...ko.pats.v}
-                    ko.pats[nm].x=i*d
-                }else{
-                    ko.pats.v.x=d
+            if (re.test(e)) {
+                var f = this.poi(ko, e)
+                var d = (ko.w - ko.pats.l.w) / f[2]
+                for (let i = 0; i < f[2]; i++) {
+                    if (i > 0) {
+                        var nm = "c" + String(i)
+                        ko.pats[nm] = { ...ko.pats.v }
+                        ko.pats[nm].x = i * d
+                    } else {
+                        ko.pats.v.x = d
+                    }
                 }
             }
         }
-    }
     }
 
     dividePa(ko) {
         let i
         i = 0
         for (let e of ko.lbs.slice(2)) {
-            let re = new RegExp("[" + PARTS + "]d[xyz][0-9][,]?[0-9]*")
+            let re = new RegExp(this.rr.dividep)
             if (re.test(e)) {
                 // alert(e)
-                var f =this.poi(ko, e)
+                var f = this.poi(ko, e)
                 var di
                 if (f[1][1] == "x") {
                     di = "w"
@@ -772,19 +805,19 @@ export class Proj {
                 } else if (f[1][1] == "z") {
                     di = "h"
                 }
-                
+
                 if (/,/.test(e)) {
-                    ko.pats[e[0]][di] = (ko.pats[e[0]][di] -f[2][1]*(f[2][0]-1))   / f[2][0]
+                    ko.pats[e[0]][di] = (ko.pats[e[0]][di] - f[2][1] * (f[2][0] - 1)) / f[2][0]
                     for (let i = 0; i < f[2][0]; i++) {
-                        var nm=e[0] + String(i)
+                        var nm = e[0] + String(i)
                         ko.pats[nm] = { ...ko.pats[e[0]] }
-                        ko.pats[nm][e[2]] = ko.pats[nm][e[2]] + (ko.pats[nm][di] + f[2][1]) * i 
+                        ko.pats[nm][e[2]] = ko.pats[nm][e[2]] + (ko.pats[nm][di] + f[2][1]) * i
                     }
                 } else {
                     ko.pats[e[0]][di] = ko.pats[e[0]][di] / f[2]
                     for (let i = 0; i < f[2]; i++) {
-                        var nm=e[0] + String(i)
-                    ko.pats[nm] = { ...ko.pats[e[0]] }
+                        var nm = e[0] + String(i)
+                        ko.pats[nm] = { ...ko.pats[e[0]] }
                         ko.pats[nm][e[2]] = ko.pats[nm][e[2]] + ko.pats[nm][di] * i
                     }
 
@@ -797,7 +830,7 @@ export class Proj {
 
     makeKoRow(ko) {
         for (let e of ko.lbs.slice(2)) {
-            let re = new RegExp("^[xyz][0-9-]+[,]")
+            let re = new RegExp(this.rr.rowko)
             if (re.test(e)) {
                 let f = this.poi(ko, e)
                 ko[e[0]] = f[2][0]
@@ -812,7 +845,7 @@ export class Proj {
     }
     makePaRow(ko) {
         for (let e of ko.lbs.slice(2)) {
-            let re = new RegExp("[" + PARTS + "][xyz][0-9-]+[,]")
+            let re = new RegExp(this.rr.parow)
             if (re.test(e)) {
                 let f = this.poi(ko, e)
                 ko.pats[e[0]][e[1]] = f[2][0]
@@ -828,14 +861,16 @@ export class Proj {
 
     connect(ko) {
         for (let e of ko.lbs.slice(2)) {
-            if (/[_][0-9]/.test(e)) {
+            let re = new RegExp(this.rr.conn)
+            if (re.test(e)) {
                 ko = this.alignToKorp(ko, e)
             }
         }
     }
     makeKoN(ko) {
         for (let e of ko.lbs.slice(2)) {
-            if (/^n[xyz][0-9][,]?/.test(e)) {
+            let re = new RegExp(this.rr.koN)
+            if (re.test(e)) {
                 var f = this.poi(ko, e)
                 if (/[,]/.test(e)) {
                     ko[f[1]] = f[2]
@@ -856,7 +891,7 @@ export class Proj {
     }
     makePaN(ko) {
         for (let e of ko.lbs.slice(2)) {
-            let re = new RegExp("[" + PARTS + "]n[xyz][0-9]")
+            let re = new RegExp(this.rr.paN)
             if (re.test(e)) {
                 var f = this.poi(ko, e)
                 if (/[,]/.test(e)) {
@@ -890,7 +925,7 @@ export class Proj {
             t: "h",
         }
         let re, ar
-        
+
         // set all i3
         re = RegExp(" i[gt][0-9]+", "g")
         ar = ko.innk.match(re)
@@ -898,8 +933,8 @@ export class Proj {
         if (ar != null) {
             for (let e of ar) {
                 let f = this.splita1(ko, e)
-                let v=Number(f[1])
-                let k=f[0]
+                let v = Number(f[1])
+                let k = f[0]
                 var p = {
                     ig: {
                         w: ko.w,
@@ -918,9 +953,9 @@ export class Proj {
                         z: ko.h
                     },
                 }
-                ko.pats[k]={...ko.pats[k[1]]}
+                ko.pats[k] = { ...ko.pats[k[1]] }
 
-                ko.pats[k]={...p[String(k.trim())]}
+                ko.pats[k] = { ...p[String(k.trim())] }
                 // alert(dd(ko.pats[k]))
                 ko[f[0]] = Number(f[1])
                 // for (let r in p[f[0][1]]){
@@ -956,18 +991,19 @@ export class Proj {
             g: "hz",
             t: "h",
         }
-            for (let f in ko) {
-                if (/i[lrgtbf]/.test(f)) {
-                    // alert(f)
-                    for (let ff of pushpullpa["g"]) {
-                        if (/[wdh]/.test(ff)) {
-                            ko[ff] -= ko[f]
-                        } else {
-                            ko[ff] += ko[f]
-                        }
+        for (let f in ko) {
+            let re = new RegExp(this.rr.pupudo)
+            if (re.test(f)) {
+                // alert(f)
+                for (let ff of pushpullpa["g"]) {
+                    if (/[wdh]/.test(ff)) {
+                        ko[ff] -= ko[f]
+                    } else {
+                        ko[ff] += ko[f]
                     }
                 }
             }
+        }
     }
 
 
@@ -976,15 +1012,17 @@ export class Proj {
         var def2 = {
             b: "trgl",
             f: "trgl",
-            l: "wx",
-            r: "w",
-            g: "hz",
-            t: "h",
+            l: "tfgb",
+            r: "tfgb",
+            v: "tfgb",
+            g: "brfl",
+            t: "brfl",
+            c: "brfl",
         }
         let re, ar
 
         // set all i3
-        re = RegExp("[" + PARTS + "][_]*[0-9]*i[,-.0-9]+", "g")
+        re = RegExp(this.rr.pushpu,"g")
         ar = ko.innk.match(re)
         if (ar != null) {
             for (let e of ar) {
@@ -1069,11 +1107,11 @@ export class Proj {
             koo = lk[0]
             p2 = lk[1][0]
             k2 = lk[1].slice(2)
-        // }else if (/^[lrgtfbcv]/.test(k)) {
-        //     p2=k[0]
-        //     if (k.length == 2) {
-        //         k2=k[1]
-        //     }
+            // }else if (/^[lrgtfbcv]/.test(k)) {
+            //     p2=k[0]
+            //     if (k.length == 2) {
+            //         k2=k[1]
+            //     }
         } else {
             // 2222222222222222222222
             if (k.length == 1) {
@@ -1102,51 +1140,51 @@ export class Proj {
         return res
     }
 
-    getDist(ko,bl) {
-        var dir=""
+    getDist(ko, bl) {
+        var dir = ""
         if (/=/.test(bl)) {
-            let v= bl.split("=")
-            bl=v[1]
-            dir=v[0]
+            let v = bl.split("=")
+            bl = v[1]
+            dir = v[0]
         }
-            if (/_/.test(bl)) {
-                let startend= bl.split("_")
-                function turnAr2Oj(a,k){
+        if (/_/.test(bl)) {
+            let startend = bl.split("_")
+            function turnAr2Oj(a, k) {
 
-                    let b={}
-                    var i=0
-                    for(let e of k){
-                        
-                        b[e]=a[i]
-                        i++
-                    }
-                    return b
+                let b = {}
+                var i = 0
+                for (let e of k) {
+
+                    b[e] = a[i]
+                    i++
                 }
-                let k="wdh"
-                let p0 = this.getxyzfromcorner(ko, startend[0])
-                let p1 = this.getxyzfromcorner(ko, startend[1])
-                return[turnAr2Oj(p0,k),turnAr2Oj(p1,k),dir]
-                alert(p0+p1)
-                if (p0[0] > p1[0]) {
-                    return Math.abs(Number(p0[0]) - Number(p1[0]))
-                } else {
-                    return Math.abs(Number(p1[0]) - Number(p0[0]))
-                }
+                return b
             }
-        
-        
+            let k = "wdh"
+            let p0 = this.getxyzfromcorner(ko, startend[0])
+            let p1 = this.getxyzfromcorner(ko, startend[1])
+            return [turnAr2Oj(p0, k), turnAr2Oj(p1, k), dir]
+            alert(p0 + p1)
+            if (p0[0] > p1[0]) {
+                return Math.abs(Number(p0[0]) - Number(p1[0]))
+            } else {
+                return Math.abs(Number(p1[0]) - Number(p0[0]))
+            }
+        }
+
+
     }
 
 
     getxyzfromcorner(ko, blo) {
-        if(/[.]/.test(blo)){
+        if (/[.]/.test(blo)) {
             // parts
-            var f=blo.split(".")
-            var xyz=this.cornersPart(this.oks[f[0].trim()],f[1][0],Number(f[1][1]))
-        }else{
+            var f = blo.split(".")
+            var xyz = this.cornersPart(this.oks[f[0].trim()], f[1][0], Number(f[1][1]))
+        } else {
             // korpus
-            var f=this.splita1(ko, blo)
-            var xyz=this.corners(this.oks[f[0]],Number(f[1]))
+            var f = this.splita1(ko, blo)
+            var xyz = this.corners(this.oks[f[0]], Number(f[1]))
 
         }
         return xyz
@@ -1181,7 +1219,6 @@ export class Proj {
 
 
     cutFront(ko) {
-        // this.angtex+=ko.n+" St. "+ko.nme+" B"+ko.w+" T "+ko.h+" H"+ko.h+" H"+ko.d+" cm\n"
         for (let e of ko.lbs.slice(2)) {
             try {
 
@@ -1544,7 +1581,7 @@ export class Proj {
 
 
     splita1(ko, s) {
-        s=s.trim()
+        s = s.trim()
         if (/[\=]/.test(s)) {
             let f = s.split("=")
             if (/[lrgtbf][xyzwdhs][\+\-/\*]?[0-9]*/.test(f[1])) {
@@ -1633,9 +1670,9 @@ export class Proj {
                 p.z + p.h],  // left top
             // 2
             [
-                p.x+p.w,
+                p.x + p.w,
                 p.y,
-                p.z+p.h
+                p.z + p.h
             ],  // right top
             // 3
             [p.x + p.w - ir,

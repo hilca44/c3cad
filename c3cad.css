@@ -22,7 +22,7 @@
     border-bottom:1px darkolivegreen; } 
 html{ 
     overflow:scroll;
-    background-color: darkolivegreen; 
+    background-color: #666; 
 }
 /* body{ 
     position:fixed;
@@ -39,7 +39,7 @@ html{
 }
 textarea{
     padding: 10px 20px;
-    background-color: #666;
+    background-color: ivory;
     width: 100vw;
     /* font-size: 1.05; */
     height: 40vh;
@@ -81,6 +81,7 @@ progress {display:inline; width:10%;}
 } 
 .number{
     font-size: 23px;
+    color: #222;
 }
 .element {
     width: 120px;
@@ -148,6 +149,16 @@ progress {display:inline; width:10%;}
     top: 0px ;
     padding: 4px;
     float: left;
+    z-index: 11;
+  }
+  .btn {
+    background-color: olive;
+    color: white;
+    border: none;
+    margin: 4px;
+    top: 0px ;
+    padding: 4px;
+    display: block;
     z-index: 11;
   }
   footer {

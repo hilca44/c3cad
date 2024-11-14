@@ -577,7 +577,7 @@ export class Proj {
             var p = {
                 l: {
                     w: Number(ko.pats["l"].s),
-                    d: Number(ko.d),
+                    d: Number(ko.d-s.b-s.f),
                     h: Number(ko.h - s.t - s.g),
                     x: Number(-ko.xx),
                     y: Number(s.f),
@@ -585,7 +585,7 @@ export class Proj {
                 },
                 r: {
                     w: Number(ko.s),
-                    d: Number(ko.d),
+                    d: Number(ko.d-s.b-s.f),
                     h: Number(ko.h - s.t - s.g),
                     x: Number(ko.w - ko.pats.r.s + ko.xx),
                     y: Number(s.f),

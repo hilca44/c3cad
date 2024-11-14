@@ -9,8 +9,7 @@ CAD for creating basic furnitures, frontend for Threejs.
 - describe your object with short text blocks
 - creates exploded views: type xx5 xy22 xz5 ...
   
-![c3cad](https://github.com/user-attachments/assets/6a856ed7-b90a-450c-b73b-4df4abef2fc2)
-
+![c3cad_s4](https://github.com/user-attachments/assets/d39c79fe-bdb2-43f2-910c-f34182f26697)
 
 - live demo:
 - https://hilbertcnc.de/c3cad/
@@ -19,7 +18,7 @@ example
 ---
 bed in 3 minutes
 
-![bed2](https://github.com/user-attachments/assets/aae96dc2-cc7a-40da-8b8f-0030ed23c75f)
+![c3cad_bed_s3](https://github.com/user-attachments/assets/6530be92-2860-406e-bb28-b84e66130990)
 
 c3cad cannot
 -------------
@@ -40,12 +39,6 @@ b) install a web server locally
 - open your browser on: 
 - http://localhost:3000
 
-
-c3cad cannot
--------------
-- working with lines and arcs
-- create dimensions
-
 example
 ---
 - m0, m1 ... material definition for parameter, presentation.
@@ -57,12 +50,11 @@ do not
 ---
 do not use upper case except vars
 do not use spaces in the first block, which is your korpus name
-in our example is a the name
-
+in our example is "a" the name
 
 values
 ---
-- 3 absolut value
+- 3 absolute value
 - @3 relativ value
 - 3,5,7 list
 
@@ -71,7 +63,8 @@ parts
 - b back rueckw
 - l left
 - r right
-- c cupboard
+- c cupboard (inside horizontal)
+- v vertical (inside)
 - f front
 - g ground
 - [gtlrfbvc] take one part (char)
@@ -83,6 +76,15 @@ properties
 -s thickness
 -w width
 -h height 
+
+rules
+---
+- each row is one korpus
+- # this is a comment or disable a row
+
+- first 5 blocks must be :
+- name parts wdth depth heigth
+- test lrgc 30 30 60 (centimeter)
 
 colors
 ---

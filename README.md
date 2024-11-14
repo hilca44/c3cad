@@ -4,10 +4,10 @@ tiny and fast 3d Korpus Generator
 (carpenters-3d-cad)
 ---
 CAD for creating basic furnitures, frontend for Threejs.
-- c-cad is a parametric korpus generator
-- c-cad creates 3d models
-- input is only via text lines with special terminologie
-- create exploded views: type g5 or g22 ...
+- c3cad is a parametric korpus generator
+- c3cad creates 3d models
+- describe your object with short text blocks
+- creates exploded views: type xx5 xy22 xz5 ...
   
 ![c3cad](https://github.com/user-attachments/assets/6a856ed7-b90a-450c-b73b-4df4abef2fc2)
 
@@ -18,7 +18,6 @@ CAD for creating basic furnitures, frontend for Threejs.
 example
 ---
 bed in 3 minutes
-
 
 ![bed2](https://github.com/user-attachments/assets/aae96dc2-cc7a-40da-8b8f-0030ed23c75f)
 
@@ -140,8 +139,8 @@ corners:
   |.    | /
   0 --- 3 
 e.g.,
-a 60 40 72
-b 50 40 72 a_3
+a lrgtb 60 40 72
+b lrgtb 50 40 72 a_3
 explanation: connects point 0
 of current korpus to point 3 of
 korpus a

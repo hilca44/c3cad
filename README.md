@@ -1,8 +1,9 @@
 c3cad 
 ---
-tiny and fast 3d Korpus Generator
+3D Korpus Generator
 (carpenters-3d-cad)
 ---
+tiny and fast
 CAD for creating basic furnitures, frontend for Threejs.
 - c3cad is a parametric korpus generator
 - c3cad creates 3d models

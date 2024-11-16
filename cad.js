@@ -110,7 +110,8 @@ export class Proj {
             paN: "[" + PARTS + "]n[xyz][0-9]",
             pupuko: " i[gt][0-9]+",
             pupudo: "i[lrgtbf]",
-            pushpu: "[" + PARTS + "]i[-]?[.0-9]+"
+            pushpu: "[" + PARTS + "]i[-]?[.0-9]+[,]",
+            pushpu2:"[" + PARTS + "]i[lrgtbf][-.0-9]+"
         }
         this.lastko = ""
         this.vs = {} // all obj key=first entry
@@ -1035,19 +1036,20 @@ export class Proj {
         let re, ar
 
         // set all i3
-        re = RegExp(this.rr.pushpu,"g")
-        ar = ko.innk.match(re)
-        if (ar != null) {
-            for (let e of ar) {
-                let f = this.poi(ko, e)
-                if (Array.isArray(f[2])) {
+        for(let eee of ko.lbs){
 
-                } else {
-                    for (let ee of def2[f[0]]) {
-                        ko.pats[f[0]]["i" + ee] = f[2]
-                    }
+            re = RegExp(this.rr.pushpu)
+            if(re.test(eee)){
+                let f = this.poi(ko, eee)
+
+                    // for (let e of ar) {
+                    let i=0
+                        for (let ee of def2[eee[0]]) {
+                            ko.pats[eee[0]]["i" + ee] = f[2][i]
+                            i++
+                        }
+                    // }
                 }
-            }
         }
         re = RegExp("[" + PARTS + "]i[lrgtbf][-.0-9]+", "g")
         ar = ko.innk.match(re)

@@ -63,13 +63,13 @@ class ResourceTracker {
 }
 // 
 function encodeqs(sks) {
-    return sks.replace(/[ ]/g, "&").replace(/\n/g, "&&").replace(/#/g, "vvv")
-
+    // return sks.replace(/[ ]/g, "&").replace(/\n/g, "&&").replace(/#/g, "vvv")
+    return encodeURI(sks)
 }
 // 
 function decodeqs(sks) {
-    return sks.replace(/&&/g, "\n").replace(/&/g, " ").replace(/vvv/g, "#")
-
+    // return sks.replace(/&&/g, "\n").replace(/&/g, " ").replace(/vvv/g, "#")
+return decodeURI(sks)
 }
 var deb = 0
 var unitfaktor = 10

@@ -1,11 +1,11 @@
 * {
     font-family: monospace;
-    font-size: 1.05em;
+    font-size: 1.1em;
     padding: 10px 20px;
 }
-     div.label{
-        width: auto;
-     }                
+.hid {
+    display: none;
+}
 #stl_cont{
     height: 500px;
     width: 500px;
@@ -209,6 +209,7 @@ progress {display:inline; width:10%;}
    @media screen and (min-resolution: 180dpi) {
     * {
          color: #222;
+         font-size: 40px;
         
 }
    }

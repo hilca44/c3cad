@@ -101,7 +101,7 @@ export class Proj {
             kowdh: "[0-9][_][a-z]",
             koxyz: "^[" + PMETER1 + "][xyz]?[@]?[-]?[0-9.,]+$",
             paxyz: "[" + PARTS + "][" + PMETER1 + "][=]?[@]?[-+/*]?[0-9.,]+",
-            spreadv: "[v][0-9][,]?[0-9]*",
+            spread: "[cv][0-9][,]?[0-9]*",
             dividep: "[" + PARTS + "]d[xyz][0-9][,]?[0-9]*",
             rowko: "^[xyz][0-9-]+[,]",
             parow: "[" + PARTS + "][xyz][0-9-]+[,]",
@@ -352,11 +352,6 @@ export class Proj {
         this.makeKoN(ko)
         this.createN(ko)
         this.createNparts(ko)
-        /// NN ///////////////////
-        // let cps=this.createN(ko,this.oks )
-        // for(let e of cps){
-        //     this.oks[e.nme]={...e}
-        // }
 
         function rou(li) {
             let nu = 0.0
@@ -465,7 +460,13 @@ export class Proj {
             // if (PARTS.includes(pp)) {
             ko.pats[pp] = {
                 s: ko.s,
-                co: ko.co
+                co: ko.co,
+                w: 0,
+                d: 0,
+                h: 0,
+                x: 0,
+                y: 0,
+                z: 0,
             }
 
             // }
@@ -727,11 +728,11 @@ export class Proj {
                     let v2 = f[1].slice(1)
                     ko[f[0]] = ko[f[0]] + Number(v2)
                 } else if (/[,]/.test(e)) {
-                    let f = this.poi(ko, e)
+                    let ff = this.poi(ko, e)
                     let i = 0
-                    for (let b of f[2]) {
-                        this.oks[f[0] + String(i)] = { ...ko }
-                        this.oks[f[0] + String(i)][f[1]] = b
+                    for (let b of ff[2]) {
+                        this.oks[ff[0] + String(i)] = { ...ko }
+                        this.oks[ff[0] + String(i)][ff[1]] = b
                         i++
                     }
                 } else {
@@ -771,18 +772,30 @@ export class Proj {
     }
 
     spreadPa(ko) {
-        let re = new RegExp(this.rr.spreadv)
+        var m={
+            v: "w",
+            c:"h"
+        }
+        var r={
+            v:"x",
+            c: "z"
+        }
+        var b={
+            v:"l",
+            c: "g"
+        }
+        let re = new RegExp(this.rr.spread)
         for (let e of ko.lbs.slice(2)) {
             if (re.test(e)) {
                 var f = this.poi(ko, e)
-                var d = (ko.w - ko.pats.l.w) / f[2]
+                var d = (ko[m[e[0]]] - ko.pats[b[e[0]]][m[e[0]]]) / f[2]
                 for (let i = 0; i < f[2]; i++) {
                     if (i > 0) {
-                        var nm = "c" + String(i)
-                        ko.pats[nm] = { ...ko.pats.v }
-                        ko.pats[nm].x = i * d
+                        var nm = e[0] + String(i)
+                        ko.pats[nm] = { ...ko.pats[e[0]] }
+                        ko.pats[nm][r[e[0]]] = i * d
                     } else {
-                        ko.pats.v.x = d
+                        ko.pats[e[0]][r[e[0]]] = d
                     }
                 }
             }

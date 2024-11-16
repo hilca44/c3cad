@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-    <meta name="viewport" 
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
 
-		<title>c3cad</title>
-    <link rel="shortcut icon", href="logo.svg", type="image/x-icon">
-        <link rel="stylesheet" href="c3cad.css">
-        <script type="importmap">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+
+  <title>c3cad</title>
+  <link rel="shortcut icon" , href="logo.svg" , type="image/x-icon">
+  <link rel="stylesheet" href="c3cad.css">
+  <script type="importmap">
             {
               "imports": {
                 "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
@@ -16,53 +16,54 @@
               }
             }
           </script>
-          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js">
 
-          </script>
+  </script>
   <!-- <script type="module" src="./main.js"></script> -->
-  
-	</head>
-	<body>
-    <div class="fix">
 
-      <div class="number">c3cad</div>
-      <div id="mm2"></div>
-      <div class="dropdown">
-        
-        <button class="dropbtn">
-          Help
-          
-        </button> 
-          <iframe id="hlp" class="dropdown-content" src="./help.txt"></iframe>
-        </div>
-      </div>
+</head>
+
+<body>
+  <div class="fix">
+
+    <div class="number">c3cad</div>
+    <div id="mm2"></div>
+    <div class="dropdown">
+
+      <button class="dropbtn">
+        Help
+
+      </button>
+      <iframe id="hlp" class="dropdown-content" src="./help.txt"></iframe>
     </div>
+  </div>
+  </div>
 
-        <div id="canvas"></div>
-        <div id="guxxxxx"></div>
-        <div class="fixsav">
-          <div>
+  <div id="canvas"></div>
+  <div id="guxxxxx"></div>
+  <div class="fixsav">
+    <div>
 
-            <a id="save" title="redraw and save drawing to browsers history" class="btn" href="">save [Esc]</a>
-          </div>
-          <button class="btn" title="update without moving the camera" onclick="init(1)">update [Ctrl]</button>
+      <a id="save"  class="hid" href="">save [Esc]</a>
+    </div>
+    <button class="btn" title="redraw and save drawing to browsers history"  onclick="sav()">save [Esc]</button>
+    <button class="btn" title="update without moving the camera" onclick="init(1)">update [Ctrl]</button>
+    <div class="fixbot">
+      <span id="wrong" class="r"></span>
+      <span id="err"></span>
+    </div>
+  </div>
+  <div>
 
-          <div class="fixbot">
-            <span  id="wrong" class="r"></span>
-            <span  id="err"></span>
-          </div>
-        </div>
-          <div>
-            
-          </div>
-          
-        <textarea id="inn" class="fixbot" ></textarea>
-        <div></div>
+  </div>
 
-        <div id="ddc"></div>
+  <textarea id="inn" class="fixbot"></textarea>
+  <div></div>
+
+  <div id="ddc"></div>
 
 
-        <!-- <script type="module">
+  <!-- <script type="module">
           // const module = {}
           // import { magie } from "./main.js";
           // module.magie = magie
@@ -75,29 +76,35 @@
           })
         </script> -->
 
-<script type="module">
-  const module = {}
-  import { init } from "./main.js";
-  module.init = init
-  $(document).keyup(function (event) {
-    if ( event.key == "Control" ) {
-      // if ( event.which == 27 ) {
-    // if (event.key == "w") {
-      // event.preventDefault()
+  <script type="module">
+    export function sav(){
       init(1)
+      window.location.href = $("#save").attr("href")
     }
-    if (event.key == "Escape") {
-              event.preventDefault()
-              window.location.href=$("#save").attr("href")
-            }
-  })
-</script>
+    window.sav=sav
+    const module = {}
+    import { init } from "./main.js";
+    module.init = init
+    $(document).keyup(function (event) {
+      if (event.key == "Control") {
+        // if ( event.which == 27 ) {
+        // if (event.key == "w") {
+        // event.preventDefault()
+        init(1)
+      }
+      if (event.key == "Escape") {
+        event.preventDefault()
+      sav()
+      }
+    })
+  </script>
 
 
-	</body>
-  <footer>
-    <p>
-      powered by three.js
-    </p>
-  </footer>
+</body>
+<footer>
+  <p>
+    powered by three.js
+  </p>
+</footer>
+
 </html>

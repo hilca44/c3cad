@@ -81,7 +81,7 @@ properties
 rules
 ---
 - each row is one korpus
-- # this is a comment or disable a row
+- \# this is a comment or disable a row
 
 - first 5 blocks must be :
 - name parts wdth depth heigth

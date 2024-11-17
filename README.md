@@ -1,11 +1,12 @@
+<pre>
 c3cad 
 ---
-3D Korpus Generator
+3D Furniture Body Generator
 (carpenters-3d-cad)
 ---
 tiny and fast
 CAD for creating basic furnitures, frontend for Threejs.
-- c3cad is a parametric korpus generator
+- c3cad is a parametric furniture body generator
 - c3cad creates 3d models
 - describe your object with short text blocks
 - creates exploded views: type xx5 xy22 xz5 ...
@@ -50,60 +51,61 @@ example
 do not
 ---
 do not use upper case except vars
-do not use spaces in the first block, which is your korpus name
+do not use spaces in the first block, which is your furniture body name
 in our example is "a" the name
 
 values
 ---
-- 3 absolute value
-- @3 relativ value
-- 3,5,7 list
+3     absolute value
+@3    relativ value
+3,5,7 list
 
 parts
 ---
-- b back rueckw
-- l left
-- r right
-- c cupboard (inside horizontal)
-- v vertical (inside)
-- f front
-- g ground
-- [gtlrfbvc] take one part (char)
+b back rueckw
+l left
+r right
+c cupboard (inside horizontal)
+v vertical (inside)
+f front
+g ground
+[gtlrfbvc] take one part (char)
 
 properties
 ---
--m material number
--nx3 repeat korpus in x dir.
--s thickness
--w width
--h height 
+m   material number
+nx3 repeat furniture body in x dir.
+s   thickness
+w   width
+h   height 
 
 rules
 ---
-- each row is one korpus
+- each row is one furniture body
 - \# this is a comment or disable a row
 
 - first 5 blocks must be :
 - name parts wdth depth heigth
 - test lrgc 30 30 60 (centimeter)
 
-colors
+colorsh
 ---
-- wh white
-- bl blue
-- ei eiche
+wh  white
+bl  blue
+ei  eiche
   
 move
 ---
--x position x
--y position y
--z position z
--e.g., x3
+x  position x
+y  position y
+z  position z
+example: x3
 
-rotate
+rotate furniture body
 ---
--o[xyz] oz rotate around z axis
--e.g., oz10
+ox  rotate around x axis
+oz  rotate around z axis
+example: oz10
 
 copy
 ---
@@ -117,7 +119,10 @@ divide
 
 divide with gap
 ---
-- fdx2,1
+divide parts into several pieces with gap
+  between parts
+example: fdx2,1
+explanation: divide front in 2 parts with gap 1 cm
 - <part>d<direction><number>,<gap>
 
 
@@ -134,29 +139,30 @@ a_3
 <name>_<corner>
 a.g_2
 <name>.<part>_<corner>
-corners:
+corners: </br>
       5 --- 6
     /.    / |
   1 --- 2  |
   | 4 . |. 7
   |.    | /
   0 --- 3 
-e.g.,
+example:
 a lrgtb 60 40 72
 b lrgtb 50 40 72 a_3
 explanation: connects point 0
-of current korpus to point 3 of
-korpus a
+of current furniture body to point 3 of
+furniture body a
 
 push/pull
 ---
 <part>i[lrgtfb]<value>
-e.g., il3
+example: il3
 
 
 
 auto variable
 ---
-write the name of a previous Korpus
+write the name of a previous furniture body
 in Upper case letters makes a copy.
 you can override parameter
+</pre>

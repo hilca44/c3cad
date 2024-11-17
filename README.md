@@ -17,8 +17,9 @@ CAD for creating basic furnitures, frontend for Threejs.
 
 live demo
   ---
+  </pre>
   https://hilbertcnc.de/c3cad/
-  
+  <pre>
 example
 ---
 bed in 3 minutes

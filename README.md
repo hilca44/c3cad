@@ -10,8 +10,10 @@ CAD for creating basic furnitures, frontend for Threejs.
 - c3cad creates 3d models
 - describe your object with short text blocks
 - creates exploded views: type xx5 xy22 xz5 ...
-  
+</pre>
 ![c3cad_s4](https://github.com/user-attachments/assets/d39c79fe-bdb2-43f2-910c-f34182f26697)
+<pre>
+  
 
 - live demo:
 - https://hilbertcnc.de/c3cad/
@@ -19,9 +21,9 @@ CAD for creating basic furnitures, frontend for Threejs.
 example
 ---
 bed in 3 minutes
-
+</pre>
 ![c3cad_bed_s3](https://github.com/user-attachments/assets/6530be92-2860-406e-bb28-b84e66130990)
-
+<pre>
 c3cad cannot
 -------------
 - working with lines and arcs

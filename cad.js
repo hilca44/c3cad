@@ -5,7 +5,7 @@ var s = {}
 var pp = "public/cad/"
 var regcomma = /[,]/
 const PARTS = "lrgtbfcve"
-const PMETER1 = "xyzwdhmgo"
+const PMETER1 = "xyzwdhmon"
 const CHARS = "_.,@"
 
 var sess = {
@@ -110,7 +110,8 @@ export class Proj {
             paN: "[" + PARTS + "]n[xyz][0-9]",
             pupuko: " i[gt][0-9]+",
             pupudo: "i[lrgtbf]",
-            pushpu: "[" + PARTS + "]i[-]?[.0-9]+[,]",
+            pushpuarr: "[" + PARTS + "]i[-]?[.0-9]+[,]",
+            pushpu: "[" + PARTS + "]i[-]?[.0-9]+[^,]",
             pushpu2:"[" + PARTS + "]i[lrgtbf][-.0-9]+"
         }
         this.lastko = ""
@@ -395,6 +396,12 @@ export class Proj {
         var i
         this.sess.eee = ""
         for (let e of ko.lbs.slice(1)) {
+            let re_firstchar = new RegExp("^[^"+ko.lbs[1]+PMETER1+"0-9]")
+            if(re_firstchar.test(e)){
+
+                this.sess.eee +=" <mark> " + e+"</mark>"
+
+            }
             i = 0
             for (let r in this.rr) {
                 let re = new RegExp(this.rr[r])
@@ -457,17 +464,17 @@ export class Proj {
     }
 
     makeParts_step1(ko) {
-        for (var pp of PARTS) {
+        for (var pp of ko.j) {
             // if (PARTS.includes(pp)) {
             ko.pats[pp] = {
                 s: ko.s,
                 co: ko.co,
-                w: 0,
-                d: 0,
-                h: 0,
-                x: 0,
-                y: 0,
-                z: 0,
+                // w: 0,
+                // d: 0,
+                // h: 0,
+                // x: 0,
+                // y: 0,
+                // z: 0,
             }
 
             // }
@@ -578,7 +585,7 @@ export class Proj {
         function getp(pp, s) {
             var p = {
                 l: {
-                    w: Number(ko.pats["l"].s),
+                    w: s.l,
                     d: Number(ko.d-s.b-s.f),
                     h: Number(ko.h - s.t - s.g),
                     x: Number(-ko.xx),
@@ -589,14 +596,14 @@ export class Proj {
                     w: Number(ko.s),
                     d: Number(ko.d-s.b-s.f),
                     h: Number(ko.h - s.t - s.g),
-                    x: Number(ko.w - ko.pats.r.s + ko.xx),
+                    x: Number(ko.w - s.r + ko.xx),
                     y: Number(s.f),
                     z: Number(s.g)
                 },
                 g: {
                     w: ko.w - s.l - s.r,
                     d: ko.d - s.f - s.b,
-                    h: ko.pats.g.s,
+                    h: s.g,
                     x: s.l,
                     y: s.f,
                     z: -ko.xz
@@ -607,12 +614,12 @@ export class Proj {
                     h: ko.s,
                     x: s.l,
                     y: s.f,
-                    z: ko.h + ko.xz - ko.pats.t.s
+                    z: ko.h + ko.xz - s.t
                 },
                 c: {
                     w: ko.w - s.l - s.r,
                     d: ko.d - s.b - s.f,
-                    h: ko.pats.c.s,
+                    h: s.c,
                     x: s.l,
                     y: s.f,
                     z: ko.h / 2
@@ -630,14 +637,14 @@ export class Proj {
                     d: ko.s,
                     h: ko.h - s.g - s.t,
                     x: s.l,
-                    y: ko.d - ko.pats.b.s + s.f + ko.xy,
+                    y: ko.d - s.b + s.f + ko.xy,
                     z: s.g
                 },
                 f: {
                     w: ko.w - s.l - s.r,
                     h: ko.h - s.g - s.t,
                     x: s.l,
-                    d: ko.pats.f.s,
+                    d: s.f,
                     y: -ko.xy,
                     z: s.g
                     // it: 1,
@@ -676,8 +683,8 @@ export class Proj {
         this.hol += ko.nme + " - - - - - " + eval(cc(ko.w) * 10) + " " + ko.d * 10 + " " + ko.h * 10 + "\n"
         var arra = []
         for (var pp of ko.j) {
-            let o = getp(pp, s)
             s[pp] = ko.pats[pp].s
+            let o = getp(pp, s)
             ko.pats[pp] = Object.assign(ko.pats[pp], o)
             let v = ko.pats[pp]
             //ko.pats[pp]=Object.assign(ko.pats[pp], ko.k)
@@ -1035,8 +1042,25 @@ export class Proj {
         }
         let re, ar
 
+  // set arr 2,2,2,2
+  for(var eee of ko.lbs){
+
+    re = RegExp(this.rr.pushpuarr)
+    if(re.test(eee)){
+        let f = this.poi(ko, eee)
+
+            // for (let e of ar) {
+            let i=0
+                for (let ee of def2[eee[0]]) {
+                    ko.pats[eee[0]]["i" + ee] = f[2][i]
+                    i++
+                }
+            // }
+        }
+}
+
         // set all i3
-        for(let eee of ko.lbs){
+        for(var eee of ko.lbs){
 
             re = RegExp(this.rr.pushpu)
             if(re.test(eee)){
@@ -1045,7 +1069,7 @@ export class Proj {
                     // for (let e of ar) {
                     let i=0
                         for (let ee of def2[eee[0]]) {
-                            ko.pats[eee[0]]["i" + ee] = f[2][i]
+                            ko.pats[eee[0]]["i" + ee] = f[2]
                             i++
                         }
                     // }

@@ -4,7 +4,6 @@ import { GUI } from 'three/addons/libs/lil-gui.module.min.js';
 import { CSS2DRenderer, CSS2DObject } from 'three/addons/renderers/CSS2DRenderer.js';
 import { OBJExporter } from 'three/addons/exporters/OBJExporter.js';
 import { Proj } from "./cad.js";
-
 // 
 function dd(pp) {
     var rr
@@ -71,7 +70,7 @@ function decodeqs(sks) {
     // return sks.replace(/&&/g, "\n").replace(/&/g, " ").replace(/vvv/g, "#")
 return decodeURI(sks)
 }
-var deb = 0
+var deb = 1
 var unitfaktor = 10
 var faktorm2 = 1000000
 var faktorm = 1000
@@ -342,7 +341,7 @@ sendsavebtn(sks)
     pr = prr(s)
 
     if (deb == 1) {
-        $("#ddc").html(dd(pr))
+        $("#ddc").html(dd(pr.oks))
     }
     ////////////////////////
     ////////////////////////
@@ -356,10 +355,11 @@ sendsavebtn(sks)
         var g = new THREE.Group()
         // korpus parts ///////////
         for (let e1 in k.pats) {
-            if(k.pats[e1].w==0){
-                continue
-            }
-            let n = makeM(k, e1, k.pats[e1])
+            // if(k.pats[e1].w * k.pats[e1].d * k.pats[e1].h==0){
+                //     continue
+                // }
+                let n = makeM(k, e1, k.pats[e1])
+                // alert(dd(n))
             g.add(n)
         }  // end korpus parts
         return g
@@ -469,8 +469,8 @@ sendsavebtn(sks)
         let holir = e1 + " " + (e.w * 10).toFixed(0) + " " + (e.d * 10).toFixed(0)
         holir += " " + (e.h * 10).toFixed(0)
         let plab
-        // plab = makeLabel(holir, 1 + po.x, 0, 0)
-        // plab.layers.set(1);
+        plab = makeLabel(holir, 1 + po.x, 0, 0)
+        plab.layers.set(1);
 
         g2.add(mes)
 
@@ -503,7 +503,8 @@ sendsavebtn(sks)
         if (mmaz > bb.z) {
             bb.z = mmaz
         }
-
+/////
+////
         // label
         let arr = [
             Number(e.w),
